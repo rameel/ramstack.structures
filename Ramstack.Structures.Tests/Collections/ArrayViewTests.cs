@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -417,8 +418,14 @@ public class ArrayViewTests
     public void AsView(string? value)
     {
         var list = value?.ToCharArray();
+        var immutable = value.AsSpan().ToImmutableArray();
+
         Assert.That(
             list.AsView(),
+            Is.EquivalentTo(value.AsSpan().ToArray()));
+
+        Assert.That(
+            immutable.AsView(),
             Is.EquivalentTo(value.AsSpan().ToArray()));
     }
 
@@ -432,9 +439,14 @@ public class ArrayViewTests
     public void AsView_Index(string? value, int index)
     {
         var list = value?.ToCharArray();
+        var immutable = value.AsSpan().ToImmutableArray();
 
         Assert.That(
             list.AsView(index),
+            Is.EquivalentTo(value.AsSpan(index).ToArray()));
+
+        Assert.That(
+            immutable.AsView(index),
             Is.EquivalentTo(value.AsSpan(index).ToArray()));
     }
 
@@ -449,9 +461,14 @@ public class ArrayViewTests
     public void AsView_Range(string? value, int index, int length)
     {
         var list = value?.ToCharArray();
+        var immutable = value.AsSpan().ToImmutableArray();
 
         Assert.That(
             list.AsView(index, length),
+            Is.EquivalentTo(value.AsSpan(index, length).ToArray()));
+
+        Assert.That(
+            immutable.AsView(index, length),
             Is.EquivalentTo(value.AsSpan(index, length).ToArray()));
     }
 
@@ -462,9 +479,14 @@ public class ArrayViewTests
     public void AsView_InvalidIndex_ShouldThrow(string? value, int index)
     {
         var list = value?.ToCharArray();
+        var immutable = value.AsSpan().ToImmutableArray();
 
         Assert.That(
             () => list.AsView(index),
+            Throws.TypeOf<ArgumentOutOfRangeException>());
+
+        Assert.That(
+            () => immutable.AsView(index),
             Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
@@ -479,9 +501,14 @@ public class ArrayViewTests
     public void AsView_InvalidRange_ShouldThrow(string? value, int index, int length)
     {
         var list = value?.ToCharArray();
+        var immutable = value.AsSpan().ToImmutableArray();
 
         Assert.That(
             () => list.AsView(index, length),
+            Throws.TypeOf<ArgumentOutOfRangeException>());
+
+        Assert.That(
+            () => immutable.AsView(index, length),
             Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 }

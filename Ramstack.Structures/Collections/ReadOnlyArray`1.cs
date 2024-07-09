@@ -38,6 +38,16 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     }
 
     /// <summary>
+    /// Gets a value indicating whether this <see cref="ReadOnlyArray{T}"/> is empty or is not initialized.
+    /// </summary>
+    public bool IsDefaultOrEmpty
+    {
+        [MemberNotNullWhen(false, nameof(Inner))]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => Inner is var inner && (inner is null || inner.Length == 0);
+    }
+
+    /// <summary>
     /// Gets an element at the specified index.
     /// </summary>
     /// <param name="index">The zero-based index of the element to get. </param>

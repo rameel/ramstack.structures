@@ -22,7 +22,7 @@ public static class ArrayViewExtensions
     /// Creates a new <see cref="ArrayView{T}"/> over a portion of the target array from a specified position to the end of the array.
     /// </summary>
     /// <param name="value">The target array.</param>
-    /// <param name="index">The index at which to begin this slice.</param>
+    /// <param name="index">The index at which to begin the array view.</param>
     /// <returns>
     /// An <see cref="ArrayView{T}"/> representing the array.
     /// </returns>
@@ -34,14 +34,14 @@ public static class ArrayViewExtensions
     /// Creates a new <see cref="ArrayView{T}"/> over a portion of the target array from a specified position for a specified number of elements.
     /// </summary>
     /// <param name="value">The target array.</param>
-    /// <param name="index">The index at which to begin this slice.</param>
-    /// <param name="length">The desired length for the slice.</param>
+    /// <param name="index">The index at which to begin the array view.</param>
+    /// <param name="count">The number of items in the array view.</param>
     /// <returns>
     /// An <see cref="ArrayView{T}"/> representing the array.
     /// </returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ArrayView<T> AsView<T>(this T[]? value, int index, int length) =>
-        new(value ?? [], index, length);
+    public static ArrayView<T> AsView<T>(this T[]? value, int index, int count) =>
+        new(value ?? [], index, count);
 
     /// <summary>
     /// Finds the index of the first occurrence of a specified value in this instance.

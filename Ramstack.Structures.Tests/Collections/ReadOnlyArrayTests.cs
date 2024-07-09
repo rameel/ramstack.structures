@@ -195,12 +195,19 @@ public class ReadOnlyArrayTests
     {
         Assert.Throws<IndexOutOfRangeException>(() => _ = ReadOnlyArray.Create(1, 2, 3, 4)[5]);
         Assert.Throws<IndexOutOfRangeException>(() => _ = ReadOnlyArray<int>.Empty[5]);
+        Assert.Throws<IndexOutOfRangeException>(() => _ = ReadOnlyArray.Empty<int>()[5]);
     }
 
     [Test]
     public void Empty()
     {
         Assert.That(ReadOnlyArray<int>.Empty.Length, Is.Zero);
+        Assert.That(ReadOnlyArray.Empty<int>().Length, Is.Zero);
+
+        Assert.That(ReadOnlyArray<int>.Empty.IsDefault, Is.False);
+        Assert.That(ReadOnlyArray<int>.Empty.IsDefaultOrEmpty, Is.True);
+        Assert.That(ReadOnlyArray.Empty<int>().IsDefault, Is.False);
+        Assert.That(ReadOnlyArray.Empty<int>().IsDefaultOrEmpty, Is.True);
     }
 
     [TestCase("value", 0)]

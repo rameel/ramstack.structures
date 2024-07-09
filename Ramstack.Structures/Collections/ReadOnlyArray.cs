@@ -59,4 +59,14 @@ public static class ReadOnlyArray
     /// </returns>
     public static ReadOnlyArray<T> Create<T>([InstantHandle] IEnumerable<T> items) =>
         new(items.ToArray());
+
+    /// <summary>
+    /// Returns an empty read-only array.
+    /// </summary>
+    /// <typeparam name="T">The type of elements stored in the array.</typeparam>
+    /// <returns>
+    /// An empty read-only array.
+    /// </returns>
+    public static ReadOnlyArray<T> Empty<T>() =>
+        new(Array.Empty<T>());
 }

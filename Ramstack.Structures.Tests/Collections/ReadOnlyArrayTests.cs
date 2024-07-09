@@ -561,6 +561,8 @@ public class ReadOnlyArrayTests
 
         Assert.That(array.IsDefault, Is.EqualTo(immutable.IsDefault));
         Assert.That(array.IsDefault, Is.EqualTo(@readonly.IsDefault));
+        Assert.That(array.IsDefaultOrEmpty, Is.EqualTo(immutable.IsDefaultOrEmpty));
+        Assert.That(array.IsDefaultOrEmpty, Is.EqualTo(@readonly.IsDefaultOrEmpty));
 
         if (!array.IsDefault)
         {

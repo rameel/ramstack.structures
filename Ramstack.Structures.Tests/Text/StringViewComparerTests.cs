@@ -1,7 +1,5 @@
 using System.Globalization;
 
-using NUnit.Framework;
-
 namespace Ramstack.Text;
 
 [TestFixture]

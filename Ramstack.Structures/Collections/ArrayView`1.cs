@@ -37,7 +37,7 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     public bool IsDefault => _array is null;
 
     /// <inheritdoc cref="IReadOnlyList{T}.this"/>
-    public ref T this[int index]
+    public ref readonly T this[int index]
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get
@@ -202,7 +202,7 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     /// A reference to the element of the <see cref="ArrayView{T}"/> at index zero.
     /// </returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ref T GetPinnableReference()
+    public ref readonly T GetPinnableReference()
     {
         // To match the behavior of ReadOnlySpan<T>
 

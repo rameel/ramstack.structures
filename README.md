@@ -2,6 +2,8 @@
 
 Ramstack.Structures is a .NET library providing various data structures and utilities.
 
+[![.NET](https://github.com/rameel/ramstack.structures/actions/workflows/test.yml/badge.svg)](https://github.com/rameel/ramstack.structures/actions/workflows/test.yml)
+
 ## Installation
 
 To install the `Ramstack.Structures` [NuGet package](https://www.nuget.org/packages/Ramstack.Structures) to your project, use the following command:
@@ -43,6 +45,16 @@ foreach (ref readonly HeavyStruct s in view)
     ...
 }
 ```
+## Changelog
+
+### 1.2.0
+- Add `Trim` overloads to `StringView` class
+
+## Supported versions
+
+|      | Version |
+|------|---------|
+| .NET | 6, 7, 8 |
 
 ## Contributions
 

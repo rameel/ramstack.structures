@@ -238,61 +238,293 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         AsSpan().EndsWith(value, comparisonType);
 
     /// <summary>
-    /// Removes all the leading white-space characters from the current instance.
+    /// Removes all leading whitespace characters from the current instance.
     /// </summary>
     /// <returns>
-    /// The <see cref="StringView"/> that remains after all white-space characters are removed from the start of the current instance.
+    /// The trimmed <see cref="StringView"/>.
     /// </returns>
     public StringView TrimStart()
     {
         var start = _index;
         var final = _index + _length;
+        var value = _value;
 
-        for (; start < final; start++)
-            if (!char.IsWhiteSpace(_value!.GetRawStringData(start)))
-                break;
+        if (value != null)
+            for (; start < final; start++)
+                if (!char.IsWhiteSpace(value.GetRawStringData(start)))
+                    break;
 
-        return new StringView(_value!, start, final - start, dummy: 0);
+        return new StringView(value!, start, final - start, dummy: 0);
     }
 
     /// <summary>
-    /// Removes all the trailing white-space characters from the current instance.
+    /// Removes all leading occurrences of a specified character from the current instance.
+    /// </summary>
+    /// <param name="trimChar">The specified character to look for and remove.</param>
+    /// <returns>
+    /// The trimmed <see cref="StringView"/>.
+    /// </returns>
+    public StringView TrimStart(char trimChar)
+    {
+        var start = _index;
+        var final = _index + _length;
+        var value = _value;
+
+        if (value != null)
+            for (; start < final; start++)
+                if (value.GetRawStringData(start) != trimChar)
+                    break;
+
+        return new StringView(value!, start, final - start, dummy: 0);
+    }
+
+    /// <summary>
+    /// Removes all leading occurrences of a set of characters specified in an array from the current instance.
+    /// </summary>
+    /// <remarks>
+    /// If <paramref name="trimChars"/> is <c>null</c> or an empty array, whitespace characters are removed instead.
+    /// </remarks>
+    /// <param name="trimChars">An array which contains a set of characters to remove.</param>
+    /// <returns>
+    /// The trimmed <see cref="StringView"/>.
+    /// </returns>
+    public StringView TrimStart(params char[]? trimChars) =>
+        TrimStart(trimChars.AsSpan());
+
+    /// <summary>
+    /// Removes all leading occurrences of a set of characters specified in a read-only span from the current instance.
+    /// </summary>
+    /// <remarks>
+    /// If <paramref name="trimChars"/> is empty, whitespace characters are removed instead.
+    /// </remarks>
+    /// <param name="trimChars">A read-only span which contains s set of characters to remove.</param>
+    /// <returns>
+    /// The trimmed <see cref="StringView"/>.
+    /// </returns>
+    public StringView TrimStart(ReadOnlySpan<char> trimChars)
+    {
+        if (trimChars.Length == 0)
+            return TrimStart();
+
+        var start = _index;
+        var final = _index + _length;
+        var value = _value;
+
+        if (value != null)
+        {
+            for (; start < final; start++)
+            {
+                for (var i = 0; i < trimChars.Length; i++)
+                    if (value.GetRawStringData(start) == trimChars[i])
+                        goto MATCHED;
+
+                break;
+                MATCHED: ;
+            }
+        }
+
+        return new StringView(value!, start, final - start, dummy: 0);
+    }
+
+    /// <summary>
+    /// Removes all trailing whitespace characters from the current instance.
     /// </summary>
     /// <returns>
-    /// The <see cref="StringView"/> that remains after all white-space characters are removed from the end of the current instance.
+    /// The trimmed <see cref="StringView"/>.
     /// </returns>
     public StringView TrimEnd()
     {
         var start = _index;
         var final = _index + _length - 1;
+        var value = _value;
 
-        for (; final >= start; final--)
-            if (!char.IsWhiteSpace(_value!.GetRawStringData(final)))
-                break;
+        if (value != null)
+            for (; final >= start; final--)
+                if (!char.IsWhiteSpace(value.GetRawStringData(final)))
+                    break;
 
-        return new StringView(_value!, start, final + 1 - start, dummy: 0);
+        return new StringView(value!, start, final + 1 - start, dummy: 0);
     }
 
     /// <summary>
-    /// Removes all leading and trailing white-space characters from the current instance.
+    /// Removes all trailing occurrences of a specified character from the current instance.
+    /// </summary>
+    /// <param name="trimChar">The specified character to look for and remove.</param>
+    /// <returns>
+    /// The trimmed <see cref="StringView"/>.
+    /// </returns>
+    public StringView TrimEnd(char trimChar)
+    {
+        var start = _index;
+        var final = _index + _length - 1;
+        var value = _value;
+
+        if (value != null)
+            for (; final >= start; final--)
+                if (value.GetRawStringData(final) != trimChar)
+                    break;
+
+        return new StringView(value!, start, final + 1 - start, dummy: 0);
+    }
+
+    /// <summary>
+    /// Removes all trailing occurrences of a set of characters specified in an array from the current instance.
+    /// </summary>
+    /// <remarks>
+    /// If <paramref name="trimChars"/> is <c>null</c> or an empty array, whitespace characters are removed instead.
+    /// </remarks>
+    /// <param name="trimChars">An array which contains a set of characters to remove.</param>
+    /// <returns>
+    /// The trimmed <see cref="StringView"/>.
+    /// </returns>
+    public StringView TrimEnd(params char[]? trimChars) =>
+        TrimEnd(trimChars.AsSpan());
+
+    /// <summary>
+    /// Removes all leading occurrences of a set of characters specified in a read-only span from the current instance.
+    /// </summary>
+    /// <remarks>
+    /// If <paramref name="trimChars"/> is empty, whitespace characters are removed instead.
+    /// </remarks>
+    /// <param name="trimChars">A read-only span which contains a set of characters to remove.</param>
+    /// <returns>
+    /// The trimmed <see cref="StringView"/>.
+    /// </returns>
+    public StringView TrimEnd(ReadOnlySpan<char> trimChars)
+    {
+        if (trimChars.Length == 0)
+            return TrimEnd();
+
+        var start = _index;
+        var final = _index + _length - 1;
+        var value = _value;
+
+        if (value != null)
+        {
+            for (; final >= start; final--)
+            {
+                for (var i = 0; i < trimChars.Length; i++)
+                    if (value.GetRawStringData(final) == trimChars[i])
+                        goto MATCHED;
+
+                break;
+                MATCHED: ;
+            }
+        }
+
+        return new StringView(value!, start, final + 1 - start, dummy: 0);
+    }
+
+    /// <summary>
+    /// Removes all leading and trailing whitespace characters from the current instance.
     /// </summary>
     /// <returns>
-    /// The <see cref="StringView"/> that remains after all white-space characters are removed from the start and end of the current instance.
+    /// The trimmed <see cref="StringView"/>.
     /// </returns>
     public StringView Trim()
     {
         var start = _index;
         var final = _index + _length - 1;
+        var value = _value;
 
-        for (; start <= final; start++)
-            if (!char.IsWhiteSpace(_value!.GetRawStringData(start)))
+        if (value != null)
+        {
+            for (; start <= final; start++)
+                if (!char.IsWhiteSpace(value.GetRawStringData(start)))
+                    break;
+
+            for (; final > start; final--)
+                if (!char.IsWhiteSpace(value.GetRawStringData(final)))
+                    break;
+        }
+
+        return new StringView(value!, start, final + 1 - start, dummy: 0);
+    }
+
+    /// <summary>
+    /// Removes all leading and trailing occurrences of a specified character from the current instance.
+    /// </summary>
+    /// <param name="trimChar">The specified character to look for and remove.</param>
+    /// <returns>
+    /// The trimmed <see cref="StringView"/>.
+    /// </returns>
+    public StringView Trim(char trimChar)
+    {
+        var start = _index;
+        var final = _index + _length - 1;
+        var value = _value;
+
+        if (value != null)
+        {
+            for (; start <= final; start++)
+                if (value.GetRawStringData(start) != trimChar)
+                    break;
+
+            for (; final > start; final--)
+                if (value.GetRawStringData(final) != trimChar)
+                    break;
+        }
+
+        return new StringView(value!, start, final + 1 - start, dummy: 0);
+    }
+
+    /// <summary>
+    /// Removes all leading and trailing occurrences of a set of characters specified in an array from the current instance.
+    /// </summary>
+    /// <remarks>
+    /// If <paramref name="trimChars"/> is <c>null</c> or an empty array, whitespace characters are removed instead.
+    /// </remarks>
+    /// <param name="trimChars">An array which contains a set of characters to remove.</param>
+    /// <returns>
+    /// The trimmed <see cref="StringView"/>.
+    /// </returns>
+    public StringView Trim(params char[]? trimChars) =>
+        Trim(trimChars.AsSpan());
+
+    /// <summary>
+    /// Removes all leading and trailing occurrences of a set of characters specified in a read-only span from the current instance.
+    /// </summary>
+    /// <remarks>
+    /// If <paramref name="trimChars"/> is empty, whitespace characters are removed instead.
+    /// </remarks>
+    /// <param name="trimChars">A read-only span which contains a set of characters to remove.</param>
+    /// <returns>
+    /// The trimmed <see cref="StringView"/>.
+    /// </returns>
+    public StringView Trim(ReadOnlySpan<char> trimChars)
+    {
+        if (trimChars.Length == 0)
+            return Trim();
+
+        var start = _index;
+        var final = _index + _length - 1;
+        var value = _value;
+
+        if (value != null)
+        {
+            for (; start <= final; start++)
+            {
+
+                for (var i = 0; i < trimChars.Length; i++)
+                    if (value.GetRawStringData(start) == trimChars[i])
+                        goto MATCHED;
+
                 break;
+                MATCHED: ;
+            }
 
-        for (; start <= final; final--)
-            if (!char.IsWhiteSpace(_value!.GetRawStringData(final)))
+            for (; final > start; final--)
+            {
+                for (var i = 0; i < trimChars.Length; i++)
+                    if (value.GetRawStringData(final) == trimChars[i])
+                        goto MATCHED;
+
                 break;
+                MATCHED: ;
+            }
+        }
 
-        return new StringView(_value!, start, final + 1 - start, dummy: 0);
+        return new StringView(value!, start, final + 1 - start, dummy: 0);
     }
 
     /// <summary>

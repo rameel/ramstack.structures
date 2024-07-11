@@ -60,6 +60,41 @@ public sealed class StringViewTests
             Is.EqualTo(value.AsSpan(index, length).TrimStart().ToString()));
     }
 
+    [TestCase("", '-')]
+    [TestCase("--------", '-')]
+    [TestCase("--++value", '-')]
+    [TestCase("--++value", '+')]
+    [TestCase("    value", '-')]
+    [TestCase("    value", ' ')]
+    [TestCase("value", '-')]
+    public void TrimStart_TrimChar(string value, char trimChar)
+    {
+        Assert.That(
+            value.AsView().TrimStart(trimChar).ToString(),
+            Is.EqualTo(value.TrimStart(trimChar)));
+    }
+
+    [TestCase("", "-+")]
+    [TestCase("--++--++-", "-+")]
+    [TestCase("--++value", "-+")]
+    [TestCase("--++value", "?=")]
+    [TestCase("    value", "-+")]
+    [TestCase("    value", "-+")]
+    [TestCase("    value", "")]
+    [TestCase("    value", null)]
+    [TestCase("value", "+-")]
+    [TestCase("value", null)]
+    public void TrimStart_TrimChars(string value, string? trimChars)
+    {
+        Assert.That(
+            value.AsView().TrimStart(trimChars?.ToCharArray()).ToString(),
+            Is.EqualTo(value.TrimStart(trimChars?.ToCharArray())));
+
+        Assert.That(
+            value.AsView().TrimStart(trimChars.AsSpan()).ToString(),
+            Is.EqualTo(value.TrimStart(trimChars?.ToCharArray())));
+    }
+
     [TestCase("", 0, 0)]
     [TestCase("    ", 0, 4)]
     [TestCase("    ", 1, 3)]
@@ -74,6 +109,42 @@ public sealed class StringViewTests
         Assert.That(
             value.AsView(index, length).TrimEnd().ToString(),
             Is.EqualTo(value.AsSpan(index, length).TrimEnd().ToString()));
+    }
+
+    [TestCase("", '-')]
+    [TestCase("---------", '-')]
+    [TestCase("value--++", '-')]
+    [TestCase("value--++", '-')]
+    [TestCase("value--++", '+')]
+    [TestCase("value    ", '-')]
+    [TestCase("value    ", ' ')]
+    [TestCase("value", '-')]
+    public void TrimEnd_TrimChar(string value, char trimChar)
+    {
+        Assert.That(
+            value.AsView().TrimEnd(trimChar).ToString(),
+            Is.EqualTo(value.TrimEnd(trimChar)));
+    }
+
+    [TestCase("", "-+")]
+    [TestCase("++--++--+", "-+")]
+    [TestCase("value++--", "-+")]
+    [TestCase("value++--", "?=")]
+    [TestCase("value    ", "-+")]
+    [TestCase("value    ", "-+")]
+    [TestCase("value    ", "")]
+    [TestCase("value    ", null)]
+    [TestCase("value", "+-")]
+    [TestCase("value", null)]
+    public void TrimEnd_TrimChars(string value, string? trimChars)
+    {
+        Assert.That(
+            value.AsView().TrimEnd(trimChars?.ToCharArray()).ToString(),
+            Is.EqualTo(value.TrimEnd(trimChars?.ToCharArray())));
+
+        Assert.That(
+            value.AsView().TrimEnd(trimChars.AsSpan()).ToString(),
+            Is.EqualTo(value.TrimEnd(trimChars?.ToCharArray())));
     }
 
     [TestCase("", 0, 0)]
@@ -94,6 +165,42 @@ public sealed class StringViewTests
         Assert.That(
             value.AsView(index, length).Trim().ToString(),
             Is.EqualTo(value.AsSpan(index, length).Trim().ToString()));
+    }
+
+    [TestCase("", '-')]
+    [TestCase("---------", '-')]
+    [TestCase("++--value--++", '-')]
+    [TestCase("++--value--++", '-')]
+    [TestCase("++--value--++", '+')]
+    [TestCase("    value    ", '-')]
+    [TestCase("    value    ", ' ')]
+    [TestCase("value", '-')]
+    public void Trim_TrimChar(string value, char trimChar)
+    {
+        Assert.That(
+            value.AsView().Trim(trimChar).ToString(),
+            Is.EqualTo(value.Trim(trimChar)));
+    }
+
+    [TestCase("", "-+")]
+    [TestCase("++--++--+", "-+")]
+    [TestCase("--++value++--", "-+")]
+    [TestCase("--++value++--", "?=")]
+    [TestCase("    value    ", "-+")]
+    [TestCase("    value    ", "-+")]
+    [TestCase("    value    ", "")]
+    [TestCase("    value    ", null)]
+    [TestCase("value", "+-")]
+    [TestCase("value", null)]
+    public void Trim_TrimChars(string value, string? trimChars)
+    {
+        Assert.That(
+            value.AsView().Trim(trimChars?.ToCharArray()).ToString(),
+            Is.EqualTo(value.Trim(trimChars?.ToCharArray())));
+
+        Assert.That(
+            value.AsView().Trim(trimChars.AsSpan()).ToString(),
+            Is.EqualTo(value.Trim(trimChars?.ToCharArray())));
     }
 
     [TestCase("value", 0, 0)]

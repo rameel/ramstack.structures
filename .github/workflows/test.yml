@@ -22,8 +22,14 @@ jobs:
         with:
           dotnet-version: 9.0.x
 
+      - name: Build (Debug)
+        run: dotnet build -c Debug
+
+      - name: Build (Release)
+        run: dotnet build -c Release
+
       - name: Test (Debug)
-        run: dotnet test -c Debug
+        run: dotnet test -c Debug --no-build
 
       - name: Test (Release)
-        run: dotnet test -c Release
+        run: dotnet test -c Release --no-build

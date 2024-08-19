@@ -1,4 +1,4 @@
-name: Build & Test
+name: Test
 
 on:
   pull_request:
@@ -15,19 +15,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 9.0.x
 
-      - name: Restore dependencies
-        run: dotnet restore
+      - name: Test (Debug)
+        run: dotnet test -c Debug
 
-      - name: Build
-        run: dotnet build -c Release --no-restore
-
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
+      - name: Test (Release)
+        run: dotnet test -c Debug

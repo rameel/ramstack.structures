@@ -1,8 +1,9 @@
 # Ramstack.Structures
 
-Ramstack.Structures is a .NET library providing various data structures and utilities.
+[![NuGet](https://img.shields.io/nuget/v/Ramstack.Structures.svg)](https://nuget.org/packages/Ramstack.Structures)
+[![MIT](https://img.shields.io/github/license/rameel/ramstack.structures)](https://github.com/rameel/ramstack.structures/blob/main/LICENSE)
 
-[![.NET](https://github.com/rameel/ramstack.structures/actions/workflows/test.yml/badge.svg)](https://github.com/rameel/ramstack.structures/actions/workflows/test.yml)
+Ramstack.Structures is a .NET library providing various data structures and utilities.
 
 ## Installation
 
@@ -47,14 +48,20 @@ foreach (ref readonly HeavyStruct s in view)
 ```
 ## Changelog
 
+### 1.2.2
+- Optimize `ArrayView.Create` method for empty collection expression
+
+### 1.2.1
+- Add `List<T>` to `ArrayView<T>` extension for NET9.0+
+
 ### 1.2.0
 - Add `Trim` overloads to `StringView` class
 
 ## Supported versions
 
-|      | Version |
-|------|---------|
-| .NET | 6, 7, 8 |
+|      | Version    |
+|------|------------|
+| .NET | 6, 7, 8, 9 |
 
 ## Contributions
 

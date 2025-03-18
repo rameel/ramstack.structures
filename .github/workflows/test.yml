@@ -1,4 +1,4 @@
-﻿name: Build & Test
+name: Build & Test
 
 on:
   pull_request:
@@ -6,28 +6,24 @@ on:
 
 jobs:
   build-and-test:
-
-    name: build-and-test-${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+    name: "Test project"
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: |
+            6.x
+            7.x
+            8.x
+            9.x
 
-      - name: Restore dependencies
-        run: dotnet restore
+      - name: Test (Debug)
+        run: dotnet test -c Debug
 
-      - name: Build
-        run: dotnet build -c Release --no-restore
-
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
+      - name: Test (Release)
+        run: dotnet test -c Release

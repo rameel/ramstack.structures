@@ -140,8 +140,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ReadOnlyArray<T> Slice(int start)
     {
-        var array = Inner!;
-        _ = array.Length;
+        var array = Inner;
+        _ = array!.Length;
 
         return start != 0
             ? new ReadOnlyArray<T>(array.AsSpan(start))
@@ -159,8 +159,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ReadOnlyArray<T> Slice(int start, int length)
     {
-        var array = Inner!;
-        var count = array.Length;
+        var array = Inner;
+        var count = array!.Length;
 
         if (start == 0 && length == count)
             return this;
@@ -266,8 +266,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// <param name="destination">The span to copy items into.</param>
     public void CopyTo(Span<T> destination)
     {
-        var array = this;
-        _ = array.Length;
+        var array = Inner;
+        _ = array!.Length;
 
         array.AsSpan().CopyTo(destination);
     }
@@ -282,8 +282,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// </returns>
     public bool TryCopyTo(Span<T> destination)
     {
-        var array = this;
-        _ = array.Length;
+        var array = Inner;
+        _ = array!.Length;
 
         return array.AsSpan().TryCopyTo(destination);
     }

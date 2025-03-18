@@ -1,4 +1,4 @@
-name: Test
+name: Build & Test
 
 on:
   pull_request:
@@ -6,12 +6,8 @@ on:
 
 jobs:
   build-and-test:
-
-    name: build-and-test-${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+    name: "Test project"
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -20,16 +16,14 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 9.0.x
-
-      - name: Build (Debug)
-        run: dotnet build -c Debug
-
-      - name: Build (Release)
-        run: dotnet build -c Release
+          dotnet-version: |
+            6.x
+            7.x
+            8.x
+            9.x
 
       - name: Test (Debug)
-        run: dotnet test -c Debug --no-build
+        run: dotnet test -c Debug
 
       - name: Test (Release)
-        run: dotnet test -c Release --no-build
+        run: dotnet test -c Release

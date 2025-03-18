@@ -29,6 +29,8 @@ public static class ArrayView
     /// <returns>
     /// An <see cref="ArrayView{T}"/> instance for the specified read-only span.
     /// </returns>
-    public static ArrayView<T> Create<T>(ReadOnlySpan<T> items) =>
-        new(items.ToArray());
+    public static ArrayView<T> Create<T>(params ReadOnlySpan<T> items) =>
+        items.Length != 0
+            ? new ArrayView<T>(items.ToArray())
+            : ArrayView<T>.Empty;
 }

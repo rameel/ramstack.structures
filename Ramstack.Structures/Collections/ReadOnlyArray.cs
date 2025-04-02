@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-
 namespace Ramstack.Collections;
 
 /// <summary>

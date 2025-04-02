@@ -1,4 +1,4 @@
-﻿namespace Ramstack.Collections;
+namespace Ramstack.Collections;
 
 [TestFixture]
 public class ArrayViewExtensionsTests

@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace Ramstack.Internal;
 
 internal static class ThrowHelper

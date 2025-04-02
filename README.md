@@ -45,6 +45,7 @@ foreach (ref readonly HeavyStruct s in view)
 {
     ...
 }
+
 ```
 ## Changelog
 
@@ -68,4 +69,6 @@ foreach (ref readonly HeavyStruct s in view)
 Bug reports and contributions are welcome.
 
 ## License
-This package is released as open source under the **MIT License**. See the [LICENSE](LICENSE) file for more details.
+This package is released as open source under the **MIT License**.
+
+See the [LICENSE](LICENSE) file for more details.

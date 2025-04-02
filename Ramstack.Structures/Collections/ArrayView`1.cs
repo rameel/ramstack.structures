@@ -256,8 +256,14 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     /// <returns>
     /// An array view representation of the read-only array.
     /// </returns>
-    public static implicit operator ArrayView<T>(ImmutableArray<T> array) =>
-        ImmutableCollectionsMarshal.AsArray(array);
+    public static implicit operator ArrayView<T>(ImmutableArray<T> array)
+    {
+        #if NET8_0_OR_GREATER
+        return ImmutableCollectionsMarshal.AsArray(array);
+        #else
+        return Unsafe.As<ImmutableArray<T>, ReadOnlyArray<T>>(ref array).AsView();
+        #endif
+    }
 
     /// <summary>
     /// Defines an implicit conversion of an array view to the <see cref="ReadOnlyMemory{T}"/>.

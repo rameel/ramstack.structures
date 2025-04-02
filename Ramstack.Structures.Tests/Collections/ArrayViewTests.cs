@@ -416,7 +416,7 @@ public class ArrayViewTests
     public void AsView(string? value)
     {
         var list = value?.ToCharArray();
-        var immutable = value.AsSpan().ToImmutableArray();
+        var immutable = value.AsSpan().ToArray().ToImmutableArray();
 
         Assert.That(
             list.AsView(),
@@ -437,7 +437,7 @@ public class ArrayViewTests
     public void AsView_Index(string? value, int index)
     {
         var list = value?.ToCharArray();
-        var immutable = value.AsSpan().ToImmutableArray();
+        var immutable = value.AsSpan().ToArray().ToImmutableArray();
 
         Assert.That(
             list.AsView(index),
@@ -459,7 +459,7 @@ public class ArrayViewTests
     public void AsView_Range(string? value, int index, int length)
     {
         var list = value?.ToCharArray();
-        var immutable = value.AsSpan().ToImmutableArray();
+        var immutable = value.AsSpan().ToArray().ToImmutableArray();
 
         Assert.That(
             list.AsView(index, length),
@@ -477,7 +477,7 @@ public class ArrayViewTests
     public void AsView_InvalidIndex_ShouldThrow(string? value, int index)
     {
         var list = value?.ToCharArray();
-        var immutable = value.AsSpan().ToImmutableArray();
+        var immutable = value.AsSpan().ToArray().ToImmutableArray();
 
         Assert.That(
             () => list.AsView(index),
@@ -499,7 +499,7 @@ public class ArrayViewTests
     public void AsView_InvalidRange_ShouldThrow(string? value, int index, int length)
     {
         var list = value?.ToCharArray();
-        var immutable = value.AsSpan().ToImmutableArray();
+        var immutable = value.AsSpan().ToArray().ToImmutableArray();
 
         Assert.That(
             () => list.AsView(index, length),

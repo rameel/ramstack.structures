@@ -8,6 +8,16 @@ namespace Ramstack.Collections;
 public static class ImmutableArrayExtensions
 {
     /// <summary>
+    /// Returns a <see cref="ReadOnlyArray{T}"/> over an immutable array.
+    /// </summary>
+    /// <param name="value">The immutable array.</param>
+    /// <returns>
+    /// The read-only array over an immutable array.
+    /// </returns>
+    public static ReadOnlyArray<T> AsReadOnlyArray<T>(this ImmutableArray<T> value) =>
+        value;
+
+    /// <summary>
     /// Creates an <see cref="ArrayView{T}"/> over an immutable array.
     /// </summary>
     /// <param name="value">The immutable array to wrap.</param>
@@ -15,7 +25,7 @@ public static class ImmutableArrayExtensions
     /// The read-only view of the array.
     /// </returns>
     public static ArrayView<T> AsView<T>(this ImmutableArray<T> value) =>
-        ImmutableCollectionsMarshal.AsArray(value).AsView();
+        value.AsReadOnlyArray().AsView();
 
     /// <summary>
     /// Creates an <see cref="ArrayView{T}"/> over an immutable array starting at a specified position to the end of the array.
@@ -26,7 +36,7 @@ public static class ImmutableArrayExtensions
     /// The read-only view of the array.
     /// </returns>
     public static ArrayView<T> AsView<T>(this ImmutableArray<T> value, int index) =>
-        ImmutableCollectionsMarshal.AsArray(value).AsView(index);
+        value.AsReadOnlyArray().AsView(index);
 
     /// <summary>
     /// Creates an <see cref="ArrayView{T}"/> over an immutable array starting at a specified position for a specified length.
@@ -38,5 +48,5 @@ public static class ImmutableArrayExtensions
     /// The read-only view of the array.
     /// </returns>
     public static ArrayView<T> AsView<T>(this ImmutableArray<T> value, int index, int count) =>
-        ImmutableCollectionsMarshal.AsArray(value).AsView(index, count);
+        value.AsReadOnlyArray().AsView(index, count);
 }

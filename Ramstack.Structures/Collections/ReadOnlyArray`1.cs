@@ -303,12 +303,18 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// <returns>
     /// A read-only array.
     /// </returns>
-    public static implicit operator ReadOnlyArray<T>(ImmutableArray<T> array) =>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static implicit operator ReadOnlyArray<T>(ImmutableArray<T> array)
+    {
+        #if NET8_0_OR_GREATER
+        return new ReadOnlyArray<T>(ImmutableCollectionsMarshal.AsArray(array)!);
+        #else
         //
         // https://github.com/dotnet/runtime/issues/83141#issuecomment-1460324087
-        // Unsafe.As<ImmutableArray<T>, ReadOnlyArray<T>>(ref array);
         //
-        new(ImmutableCollectionsMarshal.AsArray(array)!);
+        return Unsafe.As<ImmutableArray<T>, ReadOnlyArray<T>>(ref array);
+        #endif
+    }
 
     /// <summary>
     /// Returns a <see cref="ImmutableArray{T}"/> array from the <paramref name="array"/>.
@@ -317,8 +323,18 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// <returns>
     /// A read-only array.
     /// </returns>
-    public static implicit operator ImmutableArray<T>(ReadOnlyArray<T> array) =>
-        ImmutableCollectionsMarshal.AsImmutableArray(array.Inner);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static implicit operator ImmutableArray<T>(ReadOnlyArray<T> array)
+    {
+        #if NET8_0_OR_GREATER
+        return ImmutableCollectionsMarshal.AsImmutableArray(array.Inner);
+        #else
+        //
+        // https://github.com/dotnet/runtime/issues/83141#issuecomment-1460324087
+        //
+        return Unsafe.As<ReadOnlyArray<T>, ImmutableArray<T>>(ref array);
+        #endif
+    }
 
     /// <summary>
     /// Returns a <see cref="ReadOnlySpan{T}"/> from the <paramref name="array"/>.

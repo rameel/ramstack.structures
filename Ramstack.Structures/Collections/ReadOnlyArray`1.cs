@@ -101,8 +101,10 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ReadOnlyArray(ReadOnlySpan<T> items)
     {
+        //
         // Avoid address exposure in cases where the destination local does not actually end up escaping in any way.
         // https://github.com/dotnet/runtime/pull/102808
+        //
 
         // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
         if (items.Length != 0)
@@ -302,8 +304,10 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// A read-only array.
     /// </returns>
     public static implicit operator ReadOnlyArray<T>(ImmutableArray<T> array) =>
+        //
         // https://github.com/dotnet/runtime/issues/83141#issuecomment-1460324087
         // Unsafe.As<ImmutableArray<T>, ReadOnlyArray<T>>(ref array);
+        //
         new(ImmutableCollectionsMarshal.AsArray(array)!);
 
     /// <summary>
@@ -314,8 +318,6 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// A read-only array.
     /// </returns>
     public static implicit operator ImmutableArray<T>(ReadOnlyArray<T> array) =>
-        // https://github.com/dotnet/runtime/issues/83141#issuecomment-1460324087
-        // Unsafe.As<ReadOnlyArray<T>, ImmutableArray<T>>(ref array);
         ImmutableCollectionsMarshal.AsImmutableArray(array.Inner);
 
     /// <summary>

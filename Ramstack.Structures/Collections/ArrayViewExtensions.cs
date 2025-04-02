@@ -148,10 +148,10 @@ public static class ArrayViewExtensions
     {
         if (list is not null)
         {
-            var count = list.Count;
             var array = ListAccessor<T>.GetBuffer(list);
+            var count = Math.Min(list.Count, array.Length);
 
-            return new ArrayView<T>(array, 0, Math.Min(count, array.Length));
+            return new ArrayView<T>(array, 0, count);
         }
 
         return ArrayView<T>.Empty;

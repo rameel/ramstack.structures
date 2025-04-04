@@ -46,6 +46,7 @@ namespace JetBrains.Annotations;
 /// If <see cref="RequireAwait"/> is true, the attribute will only take effect if the method invocation is located under the 'await' expression.
 /// </summary>
 [AttributeUsage(AttributeTargets.Parameter)]
+[Conditional("JETBRAINS_ANNOTATIONS")]
 internal sealed class InstantHandleAttribute : Attribute
 {
     /// <summary>
@@ -61,4 +62,5 @@ internal sealed class InstantHandleAttribute : Attribute
 /// of delegate type by analyzing LINQ method chains.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method)]
+[Conditional("JETBRAINS_ANNOTATIONS")]
 internal sealed class LinqTunnelAttribute : Attribute { }

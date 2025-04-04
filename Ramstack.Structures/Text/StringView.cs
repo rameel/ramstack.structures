@@ -652,6 +652,24 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         Compare(this, other, StringComparison.CurrentCulture);
 
     /// <summary>
+    /// Compares one view with a readonly span, and returns an integer
+    /// that indicates their relative position in the sort order.
+    /// </summary>
+    /// <param name="other">An object to compare with this instance.</param>
+    /// <returns>
+    /// A signed integer that indicates the relative order of view and other:
+    ///     - If less than 0, this instance precedes than <paramref name="other"/>.
+    ///     - If 0, this instance equals <paramref name="other"/>.
+    ///     - If greater than 0, this instance follows <paramref name="other"/>.
+    /// </returns>
+    public int CompareTo(ReadOnlySpan<char> other) =>
+        Compare(this, other, StringComparison.CurrentCulture);
+
+    /// <inheritdoc />
+    public int CompareTo(string? other) =>
+        Compare(this, other, StringComparison.CurrentCulture);
+
+    /// <summary>
     /// Compares one view with another using a specified string comparison,
     /// and returns an integer that indicates their relative position in the sort order.
     /// </summary>
@@ -667,12 +685,24 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     public int CompareTo(StringView other, StringComparison comparisonType) =>
         Compare(this, other, comparisonType);
 
-    /// <inheritdoc />
-    public int CompareTo(string? other) =>
-        Compare(this, other, StringComparison.CurrentCulture);
+    /// <summary>
+    /// Compares one view with a readonly span using a specified string comparison,
+    /// and returns an integer that indicates their relative position in the sort order.
+    /// </summary>
+    /// <param name="other">The view to compare with the current instance.</param>
+    /// <param name="comparisonType">An enumeration value that determines
+    /// how current view and other are compared.</param>
+    /// <returns>
+    /// A signed integer that indicates the relative order of view and other:
+    ///     - If less than 0, this instance precedes than <paramref name="other"/>.
+    ///     - If 0, this instance equals <paramref name="other"/>.
+    ///     - If greater than 0, this instance follows <paramref name="other"/>.
+    /// </returns>
+    public int CompareTo(ReadOnlySpan<char> other, StringComparison comparisonType) =>
+        Compare(this, other, comparisonType);
 
     /// <summary>
-    /// Compares one view with another using a specified string comparison,
+    /// Compares one view with a string using a specified string comparison,
     /// and returns an integer that indicates their relative position in the sort order.
     /// </summary>
     /// <param name="other">The view to compare with the current instance.</param>
@@ -703,6 +733,17 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     public bool Equals(StringView other) =>
         Equals(this, other);
 
+    /// <summary>
+    /// Indicates whether the current object is equal to a specified readonly span.
+    /// </summary>
+    /// <param name="other">An object to compare with this object.</param>
+    /// <returns>
+    /// <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter;
+    /// otherwise, <see langword="false" />.
+    /// </returns>
+    public bool Equals(ReadOnlySpan<char> other) =>
+        Equals(this, other);
+
     /// <inheritdoc />
     public bool Equals(string? other) =>
         Equals(this, other);
@@ -718,6 +759,19 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// true if equal, false otherwise.
     /// </returns>
     public bool Equals(StringView other, StringComparison comparisonType) =>
+        Equals(this, other, comparisonType);
+
+    /// <summary>
+    /// Determines whether this view and the specified readonly span have the same characters
+    /// when compared using the specified <paramref name="comparisonType"/> option.
+    /// </summary>
+    /// <param name="other">The value to compare with the current instance.</param>
+    /// <param name="comparisonType">An enumeration value that determines
+    /// how current instance and <paramref name="other"/> are compared.</param>
+    /// <returns>
+    /// true if equal, false otherwise.
+    /// </returns>
+    public bool Equals(ReadOnlySpan<char> other, StringComparison comparisonType) =>
         Equals(this, other, comparisonType);
 
     /// <summary>
@@ -873,6 +927,18 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <see langword="true"/> if the value of <paramref name="a"/> is the same as the value
     /// of <paramref name="b"/>; otherwise, <see langword="false"/>.
     /// </returns>
+    public static bool Equals(StringView a, ReadOnlySpan<char> b) =>
+        a.AsSpan().SequenceEqual(b);
+
+    /// <summary>
+    /// Determines whether two specified <see cref="StringView"/> objects have the same value.
+    /// </summary>
+    /// <param name="a">The first value to compare.</param>
+    /// <param name="b">The second value to compare.</param>
+    /// <returns>
+    /// <see langword="true"/> if the value of <paramref name="a"/> is the same as the value
+    /// of <paramref name="b"/>; otherwise, <see langword="false"/>.
+    /// </returns>
     public static bool Equals(StringView a, string? b) =>
         a.AsSpan().SequenceEqual(b);
 
@@ -889,6 +955,21 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// otherwise, <see langword="false"/>.
     /// </returns>
     public static bool Equals(StringView a, StringView b, StringComparison comparison) =>
+        a.AsSpan().Equals(b, comparison);
+
+    /// <summary>
+    /// Determines whether two specified <see cref="StringView"/> objects have the same value
+    /// with the specified comparison rules.
+    /// </summary>
+    /// <param name="a">The first value to compare.</param>
+    /// <param name="b">The second value to compare.</param>
+    /// <param name="comparison">An enumeration value that determines how values are compared.</param>
+    /// <returns>
+    /// <see langword="true"/> if the value of the <paramref name="a"/> parameter
+    /// is equal to the value of <paramref name="b"/> parameter;
+    /// otherwise, <see langword="false"/>.
+    /// </returns>
+    public static bool Equals(StringView a, ReadOnlySpan<char> b, StringComparison comparison) =>
         a.AsSpan().Equals(b, comparison);
 
     /// <summary>
@@ -935,6 +1016,22 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     ///     - If 0, <paramref name="a"/>> equals <paramref name="b"/>.
     ///     - If greater than 0, <paramref name="a"/>> follows <paramref name="b"/> in the sort order.
     /// </returns>
+    public static int CompareOrdinal(StringView a, ReadOnlySpan<char> b) =>
+        a.AsSpan().SequenceCompareTo(b);
+
+    /// <summary>
+    /// Compares two specified <see cref="StringView"/> objects and returns an integer
+    /// that indicates their relative position in the sort order.
+    /// </summary>
+    /// <param name="a">The first value to compare.</param>
+    /// <param name="b">The second value to compare.</param>
+    /// <returns>
+    /// A 32-bit signed integer that indicates the lexical relationship between the two comparands.
+    /// A signed integer that indicates the relative order of view and other:
+    ///     - If less than 0, <paramref name="a"/>> precedes <paramref name="b"/> in the sort order.
+    ///     - If 0, <paramref name="a"/>> equals <paramref name="b"/>.
+    ///     - If greater than 0, <paramref name="a"/>> follows <paramref name="b"/> in the sort order.
+    /// </returns>
     public static int CompareOrdinal(StringView a, string? b) =>
         a.AsSpan().SequenceCompareTo(b);
 
@@ -954,6 +1051,24 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     ///     - If greater than 0, <paramref name="a"/>> follows <paramref name="b"/> in the sort order.
     /// </returns>
     public static int Compare(StringView a, StringView b, StringComparison comparison) =>
+        a.AsSpan().CompareTo(b, comparison);
+
+    /// <summary>
+    /// Compares two specified <see cref="StringView"/> objects and returns an integer
+    /// that indicates their relative position in the sort order.
+    /// </summary>
+    /// <param name="a">The first value to compare.</param>
+    /// <param name="b">The second value to compare.</param>
+    /// <param name="comparison">One of the enumeration values
+    /// that specifies the rules to use in the comparison.</param>
+    /// <returns>
+    /// A 32-bit signed integer that indicates the lexical relationship between the two comparands.
+    /// A signed integer that indicates the relative order of view and other:
+    ///     - If less than 0, <paramref name="a"/>> precedes <paramref name="b"/> in the sort order.
+    ///     - If 0, <paramref name="a"/>> equals <paramref name="b"/>.
+    ///     - If greater than 0, <paramref name="a"/>> follows <paramref name="b"/> in the sort order.
+    /// </returns>
+    public static int Compare(StringView a, ReadOnlySpan<char> b, StringComparison comparison) =>
         a.AsSpan().CompareTo(b, comparison);
 
     /// <summary>

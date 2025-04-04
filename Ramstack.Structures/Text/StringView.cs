@@ -762,7 +762,28 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ref readonly char GetPinnableReference()
     {
-        // To match the behavior of ReadOnlySpan<T>
+        //
+        // Normalize the returned reference.
+        // We must not return a reference to an element outside the bounds of our view
+        // when the view is empty (_count = 0), even if it points to a valid element
+        // in the underlying string. In this case, we return a null reference.
+        //
+        // Examples:
+        //
+        // Full string (_value):
+        // [0][1][2][3][4][5][6][7][8][9]
+        //  |--------------------------|
+        //
+        // Case 1: Non-empty view (_index = 3, _count = 4)
+        //          [3][4][5][6]
+        //           ^        ^
+        //           |--------| <- valid range for this view
+        //
+        // Case 2: Empty view (_index = 3, _count = 0)
+        //          [3][4][5][6]
+        //           ^
+        //           | <- no valid reference for this view
+        //
 
         ref readonly var p = ref Unsafe.NullRef<char>();
 

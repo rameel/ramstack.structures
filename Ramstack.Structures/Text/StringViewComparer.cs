@@ -1,7 +1,8 @@
 namespace Ramstack.Text;
 
 /// <summary>
-/// Represents a <see cref="StringView"/> comparison operation that uses specific case and culture-based or ordinal comparison rules.
+/// Represents a <see cref="StringView"/> comparison operation
+/// that uses specific case and culture-based or ordinal comparison rules.
 /// </summary>
 public abstract class StringViewComparer : IEqualityComparer<StringView>, IComparer<StringView>
 {
@@ -16,22 +17,28 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
     public static StringViewComparer OrdinalIgnoreCase => OrdinalIgnoreCaseComparer.Instance;
 
     /// <summary>
-    /// Gets a <see cref="StringViewComparer"/> object that performs case-insensitive string comparisons using the word comparison rules of the current culture.
+    /// Gets a <see cref="StringViewComparer"/> object that performs case-insensitive string comparisons
+    /// using the word comparison rules of the current culture.
     /// </summary>
-    public static StringViewComparer CurrentCulture => new CultureAwareComparer(CultureInfo.CurrentCulture.CompareInfo, CompareOptions.None);
+    public static StringViewComparer CurrentCulture => new CultureAwareComparer(
+        CultureInfo.CurrentCulture.CompareInfo, CompareOptions.None);
 
     /// <summary>
-    /// Gets a <see cref="StringViewComparer"/> object that performs case-insensitive string comparisons using the word comparison rules of the current culture.
+    /// Gets a <see cref="StringViewComparer"/> object that performs case-insensitive string comparisons
+    /// using the word comparison rules of the current culture.
     /// </summary>
-    public static StringViewComparer CurrentCultureIgnoreCase => new CultureAwareComparer(CultureInfo.CurrentCulture.CompareInfo, CompareOptions.IgnoreCase);
+    public static StringViewComparer CurrentCultureIgnoreCase => new CultureAwareComparer(
+        CultureInfo.CurrentCulture.CompareInfo, CompareOptions.IgnoreCase);
 
     /// <summary>
-    /// Gets a <see cref="StringViewComparer"/> object that performs a case-sensitive string comparison using the word comparison rules of the invariant culture.
+    /// Gets a <see cref="StringViewComparer"/> object that performs a case-sensitive string comparison
+    /// using the word comparison rules of the invariant culture.
     /// </summary>
     public static StringViewComparer InvariantCulture => CultureAwareComparer.InvariantInstance;
 
     /// <summary>
-    /// Gets a <see cref="StringViewComparer"/> object that performs a case-insensitive string comparison using the word comparison rules of the invariant culture.
+    /// Gets a <see cref="StringViewComparer"/> object that performs a case-insensitive string comparison
+    /// using the word comparison rules of the invariant culture.
     /// </summary>
     public static StringViewComparer InvariantCultureIgnoreCase => CultureAwareComparer.InvariantIgnoreCaseInstance;
 
@@ -70,7 +77,8 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
     /// based on the rules of a specified culture and comparison options.
     /// </summary>
     /// <param name="culture">The culture whose linguistic rules are used for the string comparison.</param>
-    /// <param name="options">A combination of <see cref="CompareOptions"/> values that specify the comparison options.</param>
+    /// <param name="options">A combination of <see cref="CompareOptions"/> values
+    /// that specify the comparison options.</param>
     /// <returns>
     /// A new <see cref="StringViewComparer"/> object that compares strings
     /// according to the rules of the specified culture and options.
@@ -108,19 +116,25 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
     /// <summary>
     /// Represents a comparer that performs culture-sensitive string comparisons.
     /// </summary>
-    /// <param name="info">An instance of <see cref="CompareInfo"/> that provides culture-specific comparison information.</param>
-    /// <param name="options">A bitwise combination of <see cref="CompareOptions"/> values that specify how the comparison should be performed.</param>
+    /// <param name="info">An instance of <see cref="CompareInfo"/> that provides
+    /// culture-specific comparison information.</param>
+    /// <param name="options">A bitwise combination of <see cref="CompareOptions"/> values
+    /// that specify how the comparison should be performed.</param>
     private sealed class CultureAwareComparer(CompareInfo info, CompareOptions options) : StringViewComparer
     {
         /// <summary>
-        /// A singleton instance of the <see cref="T:CultureAwareComparer"/> class for invariant case-sensitive comparison.
+        /// A singleton instance of the <see cref="T:CultureAwareComparer"/> class
+        /// for invariant case-sensitive comparison.
         /// </summary>
-        public static readonly CultureAwareComparer InvariantInstance = new(CultureInfo.InvariantCulture.CompareInfo, CompareOptions.None);
+        public static readonly CultureAwareComparer InvariantInstance =
+            new(CultureInfo.InvariantCulture.CompareInfo, CompareOptions.None);
 
         /// <summary>
-        /// A singleton instance of the <see cref="T:CultureAwareComparer"/> class for invariant case-insensitive comparison.
+        /// A singleton instance of the <see cref="T:CultureAwareComparer"/> class
+        /// for invariant case-insensitive comparison.
         /// </summary>
-        public static readonly CultureAwareComparer InvariantIgnoreCaseInstance = new(CultureInfo.InvariantCulture.CompareInfo, CompareOptions.IgnoreCase);
+        public static readonly CultureAwareComparer InvariantIgnoreCaseInstance =
+            new(CultureInfo.InvariantCulture.CompareInfo, CompareOptions.IgnoreCase);
 
         /// <inheritdoc />
         public override bool Equals(StringView x, StringView y) =>
@@ -140,7 +154,8 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
     #region Inner type: OrdinalComparer
 
     /// <summary>
-    /// Represents a <see cref="StringView"/> comparison operation that performs a case-sensitive ordinal string comparison.
+    /// Represents a <see cref="StringView"/> comparison operation
+    /// that performs a case-sensitive ordinal string comparison.
     /// </summary>
     private sealed class OrdinalComparer : StringViewComparer
     {
@@ -167,7 +182,8 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
     #region Inner type: OrdinalIgnoreCaseComparer
 
     /// <summary>
-    /// Represents a <see cref="StringView"/> comparison operation that performs a case-insensitive ordinal string comparison.
+    /// Represents a <see cref="StringView"/> comparison operation
+    /// that performs a case-insensitive ordinal string comparison.
     /// </summary>
     private sealed class OrdinalIgnoreCaseComparer : StringViewComparer
     {

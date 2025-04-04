@@ -128,7 +128,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         Slice(start);
 
     /// <summary>
-    /// Returns a substring of the specified length out of the current string view starting at the specified index.
+    /// Returns a substring of the specified length out of the current string view
+    /// starting at the specified index.
     /// </summary>
     /// <remarks>
     /// This method is a synonym for the <see cref="Slice(int, int)"/> method.
@@ -159,7 +160,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     }
 
     /// <summary>
-    /// Forms a slice of the specified length out of the current string view starting at the specified index.
+    /// Forms a slice of the specified length out of the current string view
+    /// starting at the specified index.
     /// </summary>
     /// <param name="start">The index at which to begin the slice.</param>
     /// <param name="length">The length of the slice.</param>
@@ -188,7 +190,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// </summary>
     /// <param name="value">The character to compare.</param>
     /// <returns>
-    /// <see langword="true"/> if <paramref name="value"/> parameter matches the beginning of this instance; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if <paramref name="value"/> parameter matches
+    /// the beginning of this instance; otherwise, <see langword="false"/>.
     /// </returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool StartsWith(char value) =>
@@ -199,32 +202,39 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// </summary>
     /// <param name="value">The character to compare.</param>
     /// <returns>
-    /// <see langword="true"/> if <paramref name="value"/> matches the end of this instance; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if <paramref name="value"/> matches
+    /// the end of this instance; otherwise, <see langword="false"/>.
     /// </returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool EndsWith(char value) =>
         _length != 0 && _value!.GetRawStringData(_index + _length - 1) == value;
 
     /// <summary>
-    /// Determines whether the beginning of this instance matches the specified value when compared using the specified comparison option.
+    /// Determines whether the beginning of this instance matches the specified value
+    /// when compared using the specified comparison option.
     /// </summary>
     /// <param name="value">The value to compare.</param>
-    /// <param name="comparisonType">One of the enumeration values that determines how this instance and <paramref name="value"/> are compared.
+    /// <param name="comparisonType">One of the enumeration values that determines
+    /// how this instance and <paramref name="value"/> are compared.
     /// The default value is <see cref="StringComparison.CurrentCulture"/>.</param>
     /// <returns>
-    /// <see langword="true"/> if this instance begins with <paramref name="value"/> parameter; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if this instance begins with <paramref name="value"/> parameter;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public bool StartsWith(ReadOnlySpan<char> value, StringComparison comparisonType = StringComparison.CurrentCulture) =>
         AsSpan().StartsWith(value, comparisonType);
 
     /// <summary>
-    /// Determines whether the end of this instance matches the specified value when compared using the specified comparison option.
+    /// Determines whether the end of this instance matches the specified value
+    /// when compared using the specified comparison option.
     /// </summary>
     /// <param name="value">The value to compare.</param>
-    /// <param name="comparisonType">One of the enumeration values that determines how this instance and <paramref name="value"/> are compared.
+    /// <param name="comparisonType">One of the enumeration values that determines
+    /// how this instance and <paramref name="value"/> are compared.
     /// The default value is <see cref="StringComparison.CurrentCulture"/>.</param>
     /// <returns>
-    /// <see langword="true"/> if <paramref name="value"/> parameter matches the end of this instance; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if <paramref name="value"/> parameter matches
+    /// the end of this instance; otherwise, <see langword="false"/>.
     /// </returns>
     public bool EndsWith(ReadOnlySpan<char> value, StringComparison comparisonType = StringComparison.CurrentCulture) =>
         AsSpan().EndsWith(value, comparisonType);
@@ -271,10 +281,12 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     }
 
     /// <summary>
-    /// Removes all leading occurrences of a set of characters specified in an array from the current instance.
+    /// Removes all leading occurrences of a set of characters specified
+    /// in an array from the current instance.
     /// </summary>
     /// <remarks>
-    /// If <paramref name="trimChars"/> is <c>null</c> or an empty array, whitespace characters are removed instead.
+    /// If <paramref name="trimChars"/> is <see langword="null"/> or an empty array,
+    /// whitespace characters are removed instead.
     /// </remarks>
     /// <param name="trimChars">An array which contains a set of characters to remove.</param>
     /// <returns>
@@ -284,12 +296,13 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         TrimStart(trimChars.AsSpan());
 
     /// <summary>
-    /// Removes all leading occurrences of a set of characters specified in a read-only span from the current instance.
+    /// Removes all leading occurrences of a set of characters specified
+    /// in a read-only span from the current instance.
     /// </summary>
     /// <remarks>
     /// If <paramref name="trimChars"/> is empty, whitespace characters are removed instead.
     /// </remarks>
-    /// <param name="trimChars">A read-only span which contains s set of characters to remove.</param>
+    /// <param name="trimChars">A read-only span which contains a set of characters to remove.</param>
     /// <returns>
     /// The trimmed <see cref="StringView"/>.
     /// </returns>
@@ -360,10 +373,12 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     }
 
     /// <summary>
-    /// Removes all trailing occurrences of a set of characters specified in an array from the current instance.
+    /// Removes all trailing occurrences of a set of characters specified
+    /// in an array from the current instance.
     /// </summary>
     /// <remarks>
-    /// If <paramref name="trimChars"/> is <c>null</c> or an empty array, whitespace characters are removed instead.
+    /// If <paramref name="trimChars"/> is <see langword="null"/> or an empty array,
+    /// whitespace characters are removed instead.
     /// </remarks>
     /// <param name="trimChars">An array which contains a set of characters to remove.</param>
     /// <returns>
@@ -373,7 +388,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         TrimEnd(trimChars.AsSpan());
 
     /// <summary>
-    /// Removes all leading occurrences of a set of characters specified in a read-only span from the current instance.
+    /// Removes all leading occurrences of a set of characters specified
+    /// in a read-only span from the current instance.
     /// </summary>
     /// <remarks>
     /// If <paramref name="trimChars"/> is empty, whitespace characters are removed instead.
@@ -461,10 +477,12 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     }
 
     /// <summary>
-    /// Removes all leading and trailing occurrences of a set of characters specified in an array from the current instance.
+    /// Removes all leading and trailing occurrences of a set of characters
+    /// specified in an array from the current instance.
     /// </summary>
     /// <remarks>
-    /// If <paramref name="trimChars"/> is <c>null</c> or an empty array, whitespace characters are removed instead.
+    /// If <paramref name="trimChars"/> is <see langword="null"/> or an empty array,
+    /// whitespace characters are removed instead.
     /// </remarks>
     /// <param name="trimChars">An array which contains a set of characters to remove.</param>
     /// <returns>
@@ -474,7 +492,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         Trim(trimChars.AsSpan());
 
     /// <summary>
-    /// Removes all leading and trailing occurrences of a set of characters specified in a read-only span from the current instance.
+    /// Removes all leading and trailing occurrences of a set of characters specified
+    /// in a read-only span from the current instance.
     /// </summary>
     /// <remarks>
     /// If <paramref name="trimChars"/> is empty, whitespace characters are removed instead.
@@ -496,7 +515,6 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         {
             for (; start <= final; start++)
             {
-
                 for (var i = 0; i < trimChars.Length; i++)
                     if (value.GetRawStringData(start) == trimChars[i])
                         goto MATCHED;
@@ -524,61 +542,72 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// </summary>
     /// <param name="value">A Unicode character to seek.</param>
     /// <returns>
-    /// The zero-based index position of <paramref name="value"/> if that character is found, or -1 if it is not.
+    /// The zero-based index position of <paramref name="value"/> if that character is found,
+    /// or <c>-1</c> if it is not.
     /// </returns>
     public int IndexOf(char value) =>
         AsSpan().IndexOf(value);
 
     /// <summary>
-    /// Reports the zero-based index of the first occurrence of the specified character sequence in this instance.
+    /// Reports the zero-based index of the first occurrence of the specified character sequence
+    /// in this instance.
     /// </summary>
     /// <param name="value">The sequence of characters to search.</param>
     /// <returns>
-    /// The zero-based index position of <paramref name="value"/> if that sequence is found, or -1 if it is not.
+    /// The zero-based index position of <paramref name="value"/> if that sequence is found,
+    /// or <c>-1</c> if it is not.
     /// </returns>
     public int IndexOf(ReadOnlySpan<char> value) =>
         AsSpan().IndexOf(value);
 
     /// <summary>
-    /// Reports the zero-based index of the last occurrence of the specified character sequence in this instance.
-    /// A parameter specifies the type of search to use for the specified character sequence.
+    /// Reports the zero-based index of the last occurrence of the specified character sequence
+    /// in this instance. A parameter specifies the type of search
+    /// to use for the specified character sequence.
     /// </summary>
     /// <param name="value">The sequence of characters to search.</param>
     /// <param name="comparisonType">An enumeration value that specifies the rules for the search.</param>
     /// <returns>
-    /// The zero-based index position of <paramref name="value"/> if that sequence is found, or -1 if it is not.
+    /// The zero-based index position of <paramref name="value"/> if that sequence is found,
+    /// or <c>-1</c> if it is not.
     /// </returns>
     public int IndexOf(ReadOnlySpan<char> value, StringComparison comparisonType) =>
         AsSpan().IndexOf(value, comparisonType);
 
     /// <summary>
-    /// Reports the zero-based index of the last occurrence of the specified Unicode character in this instance.
+    /// Reports the zero-based index of the last occurrence of the specified Unicode character
+    /// in this instance.
     /// </summary>
     /// <param name="value">A Unicode character to seek.</param>
     /// <returns>
-    /// The zero-based index position of <paramref name="value"/> if that character is found, or -1 if it is not.
+    /// The zero-based index position of <paramref name="value"/> if that character is found,
+    /// or <c>-1</c> if it is not.
     /// </returns>
     public int LastIndexOf(char value) =>
         AsSpan().LastIndexOf(value);
 
     /// <summary>
-    /// Reports the zero-based index of the last occurrence of the specified character sequence in this instance.
+    /// Reports the zero-based index of the last occurrence of the specified character sequence
+    /// in this instance.
     /// </summary>
     /// <param name="value">The sequence of characters to search.</param>
     /// <returns>
-    /// The zero-based index position of <paramref name="value"/> if that sequence is found, or -1 if it is not.
+    /// The zero-based index position of <paramref name="value"/> if that sequence is found,
+    /// or <c>-1</c> if it is not.
     /// </returns>
     public int LastIndexOf(ReadOnlySpan<char> value) =>
         AsSpan().LastIndexOf(value);
 
     /// <summary>
-    /// Reports the zero-based index of the last occurrence of the specified character sequence in this instance.
-    /// A parameter specifies the type of search to use for the specified character sequence.
+    /// Reports the zero-based index of the last occurrence of the specified character sequence
+    /// in this instance. A parameter specifies the type of search to use
+    /// for the specified character sequence.
     /// </summary>
     /// <param name="value">The sequence of characters to search.</param>
     /// <param name="comparisonType">An enumeration value that specifies the rules for the search.</param>
     /// <returns>
-    /// The zero-based index position of <paramref name="value"/> if that sequence is found, or -1 if it is not.
+    /// The zero-based index position of <paramref name="value"/> if that sequence is found,
+    /// or <c>-1</c> if it is not.
     /// </returns>
     public int LastIndexOf(ReadOnlySpan<char> value, StringComparison comparisonType) =>
         AsSpan().LastIndexOf(value, comparisonType);
@@ -588,7 +617,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// </summary>
     /// <param name="value">A Unicode character to seek.</param>
     /// <returns>
-    /// <see langword="true"/> if the <paramref name="value"/> parameter occurs within this instance; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the <paramref name="value"/> parameter occurs within this instance;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public bool Contains(char value) =>
         AsSpan().Contains(value);
@@ -598,18 +628,21 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// </summary>
     /// <param name="value">The sequence of characters to seek.</param>
     /// <returns>
-    /// <see langword="true"/> if the <paramref name="value"/> parameter occurs within this instance; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the <paramref name="value"/> parameter occurs within this instance;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public bool Contains(ReadOnlySpan<char> value) =>
         AsSpan().IndexOf(value) >= 0;
 
     /// <summary>
-    /// Reports the zero-based index of the first occurrence of the specified character sequence in this instance, using the specified comparison rules.
+    /// Reports the zero-based index of the first occurrence of the specified character sequence
+    /// in this instance, using the specified comparison rules.
     /// </summary>
     /// <param name="value">The sequence of characters to search.</param>
     /// <param name="comparisonType">An enumeration value that specifies the rules for the search.</param>
     /// <returns>
-    /// <see langword="true"/> if the <paramref name="value"/> parameter occurs within this instance; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the <paramref name="value"/> parameter occurs within this instance;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public bool Contains(ReadOnlySpan<char> value, StringComparison comparisonType) =>
         AsSpan().Contains(value, comparisonType);
@@ -623,7 +656,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// and returns an integer that indicates their relative position in the sort order.
     /// </summary>
     /// <param name="other">The view to compare with the current instance.</param>
-    /// <param name="comparisonType">An enumeration value that determines how current view and other are compared.</param>
+    /// <param name="comparisonType">An enumeration value that determines
+    /// how current view and other are compared.</param>
     /// <returns>
     /// A signed integer that indicates the relative order of view and other:
     ///     - If less than 0, this instance precedes than <paramref name="other"/>.
@@ -642,7 +676,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// and returns an integer that indicates their relative position in the sort order.
     /// </summary>
     /// <param name="other">The view to compare with the current instance.</param>
-    /// <param name="comparisonType">An enumeration value that determines how current view and other are compared.</param>
+    /// <param name="comparisonType">An enumeration value that determines
+    /// how current view and other are compared.</param>
     /// <returns>
     /// A signed integer that indicates the relative order of view and other:
     ///     - If less than 0, this instance precedes than <paramref name="other"/>.
@@ -673,10 +708,12 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         Equals(this, other);
 
     /// <summary>
-    /// Determines whether this view and the specified other view have the same characters when compared using the specified <paramref name="comparisonType"/> option.
+    /// Determines whether this view and the specified other view have the same characters
+    /// when compared using the specified <paramref name="comparisonType"/> option.
     /// </summary>
     /// <param name="other">The value to compare with the current instance.</param>
-    /// <param name="comparisonType">An enumeration value that determines how current instance and <paramref name="other"/> are compared.</param>
+    /// <param name="comparisonType">An enumeration value that determines
+    /// how current instance and <paramref name="other"/> are compared.</param>
     /// <returns>
     /// true if equal, false otherwise.
     /// </returns>
@@ -684,10 +721,12 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         Equals(this, other, comparisonType);
 
     /// <summary>
-    /// Determines whether this view and the specified other view have the same characters when compared using the specified <paramref name="comparisonType"/> option.
+    /// Determines whether this view and the specified other view have the same characters
+    /// when compared using the specified <paramref name="comparisonType"/> option.
     /// </summary>
     /// <param name="other">The value to compare with the current instance.</param>
-    /// <param name="comparisonType">An enumeration value that determines how current instance and <paramref name="other"/> are compared.</param>
+    /// <param name="comparisonType">An enumeration value that determines
+    /// how current instance and <paramref name="other"/> are compared.</param>
     /// <returns>
     /// true if equal, false otherwise.
     /// </returns>
@@ -701,7 +740,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <summary>
     /// Returns the hash code for this instance using the specified rules.
     /// </summary>
-    /// <param name="comparisonType">One of the enumeration values that specifies the rules to use in the comparison.</param>
+    /// <param name="comparisonType">One of the enumeration values
+    /// that specifies the rules to use in the comparison.</param>
     /// <returns>
     /// A 32-bit signed integer hash code.
     /// </returns>
@@ -757,7 +797,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// Returns a reference to the element of the <see cref="StringView"/> at index zero.
     /// </summary>
     /// <returns>
-    /// A reference to the element of the <see cref="StringView"/> at index zero, or <see langword="null"/> if <see cref="IsDefault"/> is true.
+    /// A reference to the element of the <see cref="StringView"/> at index zero,
+    /// or <see langword="null"/> if <see cref="IsDefault"/> is true.
     /// </returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ref readonly char GetPinnableReference()
@@ -817,7 +858,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <param name="a">The first value to compare.</param>
     /// <param name="b">The second value to compare.</param>
     /// <returns>
-    /// <see langword="true"/> if the value of <paramref name="a"/> is the same as the value of <paramref name="b"/>; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the value of <paramref name="a"/> is the same as the value
+    /// of <paramref name="b"/>; otherwise, <see langword="false"/>.
     /// </returns>
     public static bool Equals(StringView a, StringView b) =>
         a.AsSpan().SequenceEqual(b);
@@ -828,7 +870,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <param name="a">The first value to compare.</param>
     /// <param name="b">The second value to compare.</param>
     /// <returns>
-    /// <see langword="true"/> if the value of <paramref name="a"/> is the same as the value of <paramref name="b"/>; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the value of <paramref name="a"/> is the same as the value
+    /// of <paramref name="b"/>; otherwise, <see langword="false"/>.
     /// </returns>
     public static bool Equals(StringView a, string? b) =>
         a.AsSpan().SequenceEqual(b);
@@ -841,7 +884,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <param name="b">The second value to compare.</param>
     /// <param name="comparison">An enumeration value that determines how values are compared.</param>
     /// <returns>
-    /// <see langword="true"/> if the value of the <paramref name="a"/> parameter is equal to the value of <paramref name="b"/> parameter;
+    /// <see langword="true"/> if the value of the <paramref name="a"/> parameter
+    /// is equal to the value of <paramref name="b"/> parameter;
     /// otherwise, <see langword="false"/>.
     /// </returns>
     public static bool Equals(StringView a, StringView b, StringComparison comparison) =>
@@ -855,14 +899,16 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <param name="b">The second value to compare.</param>
     /// <param name="comparison">An enumeration value that determines how values are compared.</param>
     /// <returns>
-    /// <see langword="true"/> if the value of the <paramref name="a"/> parameter is equal to the value of <paramref name="b"/> parameter;
+    /// <see langword="true"/> if the value of the <paramref name="a"/> parameter
+    /// is equal to the value of <paramref name="b"/> parameter;
     /// otherwise, <see langword="false"/>.
     /// </returns>
     public static bool Equals(StringView a, string? b, StringComparison comparison) =>
         a.AsSpan().Equals(b, comparison);
 
     /// <summary>
-    /// Compares two specified <see cref="StringView"/> objects and returns an integer that indicates their relative position in the sort order.
+    /// Compares two specified <see cref="StringView"/> objects and returns an integer
+    /// that indicates their relative position in the sort order.
     /// </summary>
     /// <param name="a">The first value to compare.</param>
     /// <param name="b">The second value to compare.</param>
@@ -877,7 +923,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         a.AsSpan().SequenceCompareTo(b);
 
     /// <summary>
-    /// Compares two specified <see cref="StringView"/> objects and returns an integer that indicates their relative position in the sort order.
+    /// Compares two specified <see cref="StringView"/> objects and returns an integer
+    /// that indicates their relative position in the sort order.
     /// </summary>
     /// <param name="a">The first value to compare.</param>
     /// <param name="b">The second value to compare.</param>
@@ -892,11 +939,13 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         a.AsSpan().SequenceCompareTo(b);
 
     /// <summary>
-    /// Compares two specified <see cref="StringView"/> objects and returns an integer that indicates their relative position in the sort order.
+    /// Compares two specified <see cref="StringView"/> objects and returns an integer
+    /// that indicates their relative position in the sort order.
     /// </summary>
     /// <param name="a">The first value to compare.</param>
     /// <param name="b">The second value to compare.</param>
-    /// <param name="comparison">One of the enumeration values that specifies the rules to use in the comparison.</param>
+    /// <param name="comparison">One of the enumeration values
+    /// that specifies the rules to use in the comparison.</param>
     /// <returns>
     /// A 32-bit signed integer that indicates the lexical relationship between the two comparands.
     /// A signed integer that indicates the relative order of view and other:
@@ -908,11 +957,13 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         a.AsSpan().CompareTo(b, comparison);
 
     /// <summary>
-    /// Compares two specified <see cref="StringView"/> objects and returns an integer that indicates their relative position in the sort order.
+    /// Compares two specified <see cref="StringView"/> objects and returns an integer
+    /// that indicates their relative position in the sort order.
     /// </summary>
     /// <param name="a">The first value to compare.</param>
     /// <param name="b">The second value to compare.</param>
-    /// <param name="comparison">One of the enumeration values that specifies the rules to use in the comparison.</param>
+    /// <param name="comparison">One of the enumeration values
+    /// that specifies the rules to use in the comparison.</param>
     /// <returns>
     /// A 32-bit signed integer that indicates the lexical relationship between the two comparands.
     /// A signed integer that indicates the relative order of view and other:
@@ -929,7 +980,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <param name="a">The first value to compare.</param>
     /// <param name="b">The second value to compare.</param>
     /// <returns>
-    /// <see langword="true"/> if the two <see cref="StringView"/> instances are equal; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the two <see cref="StringView"/> instances are equal;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public static bool operator ==(StringView a, StringView b) =>
         Equals(a, b);
@@ -940,7 +992,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <param name="a">The first value to compare.</param>
     /// <param name="b">The second value to compare.</param>
     /// <returns>
-    /// <see langword="true"/> if the two <see cref="StringView"/> instances are not equal; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the two <see cref="StringView"/> instances are not equal;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public static bool operator !=(StringView a, StringView b) =>
         !Equals(a, b);
@@ -951,7 +1004,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <param name="a">The first value to compare.</param>
     /// <param name="b">The second value to compare.</param>
     /// <returns>
-    /// <see langword="true"/> if the two <see cref="StringView"/> instances are equal; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the two <see cref="StringView"/> instances are equal;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public static bool operator ==(StringView a, string? b) =>
         Equals(a, b);
@@ -962,7 +1016,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <param name="a">The first value to compare.</param>
     /// <param name="b">The second value to compare.</param>
     /// <returns>
-    /// <see langword="true"/> if the two <see cref="StringView"/> instances are not equal; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the two <see cref="StringView"/> instances are not equal;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public static bool operator !=(StringView a, string? b) =>
         !Equals(a, b);

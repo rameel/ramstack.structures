@@ -235,8 +235,9 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
         AsSpan().CopyTo(destination);
 
     /// <summary>
-    /// Attempts to copy the contents of this <see cref="ArrayView{T}"/> into a destination <see cref="Span{T}"/>
-    /// and returns a value to indicate whether the operation succeeded.
+    /// Attempts to copy the contents of this <see cref="ArrayView{T}"/>
+    /// into a destination <see cref="Span{T}"/> and returns a value to indicate
+    /// whether the operation succeeded.
     /// </summary>
     /// <param name="destination">The span to copy items into.</param>
     /// <returns>
@@ -318,7 +319,8 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
         new(segment.Array!, segment.Offset, segment.Count, dummy: 0);
 
     /// <summary>
-    /// Returns a string representation of the current instance's state, intended for debugging purposes.
+    /// Returns a string representation of the current instance's state,
+    /// intended for debugging purposes.
     /// </summary>
     /// <returns>
     /// A string containing information about the current instance.

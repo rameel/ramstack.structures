@@ -99,7 +99,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     public ReadOnlyArray(ReadOnlySpan<T> items)
     {
         //
-        // Avoid address exposure in cases where the destination local does not actually end up escaping in any way.
+        // Avoid address exposure in cases where the destination local
+        // does not actually end up escaping in any way.
         // https://github.com/dotnet/runtime/pull/102808
         //
 
@@ -130,7 +131,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// </summary>
     /// <param name="start">The index at which to begin the slice.</param>
     /// <returns>
-    /// A readonly span that consists of all elements of the current array from <paramref name="start"/> to the end.
+    /// A readonly span that consists of all elements of the current array
+    /// from <paramref name="start"/> to the end.
     /// </returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ReadOnlyArray<T> Slice(int start)
@@ -149,7 +151,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// <param name="start">The index at which to begin the slice.</param>
     /// <param name="length">The desired length for the slice.</param>
     /// <returns>
-    /// A readonly span that consists of <paramref name="length"/> elements from the current array starting at <paramref name="start"/>.
+    /// A readonly span that consists of <paramref name="length"/> elements
+    /// from the current array starting at <paramref name="start"/>.
     /// </returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ReadOnlyArray<T> Slice(int start, int length)
@@ -185,7 +188,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
         new(Inner ?? []);
 
     /// <summary>
-    /// Creates a new read-only span over a portion of the current array starting at a specified position to the end of the array.
+    /// Creates a new read-only span over a portion of the current array
+    /// starting at a specified position to the end of the array.
     /// </summary>
     /// <param name="start">The index at which to begin the span.</param>
     /// <returns>
@@ -196,7 +200,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
         AsSpan().Slice(start);
 
     /// <summary>
-    /// Creates a new read-only span over a portion of the current array starting at a specified position for a specified length.
+    /// Creates a new read-only span over a portion of the current array
+    /// starting at a specified position for a specified length.
     /// </summary>
     /// <param name="start">The index at which to begin the span.</param>
     /// <param name="length">The number of items in the span.</param>
@@ -216,7 +221,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
         new(Inner ?? []);
 
     /// <summary>
-    /// Creates an <see cref="ArrayView{T}"/> over the current array starting at a specified position to the end of the array.
+    /// Creates an <see cref="ArrayView{T}"/> over the current array
+    /// starting at a specified position to the end of the array.
     /// </summary>
     /// <param name="index">The index at which to begin the array view.</param>
     /// <returns>
@@ -227,7 +233,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
         AsView().Slice(index);
 
     /// <summary>
-    /// Creates an <see cref="ArrayView{T}"/> over the current array starting at a specified position for a specified length.
+    /// Creates an <see cref="ArrayView{T}"/> over the current array
+    /// starting at a specified position for a specified length.
     /// </summary>
     /// <param name="index">The index at which to begin the array view.</param>
     /// <param name="count">The number of items in the array view.</param>
@@ -250,7 +257,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// Returns a reference to the element of the <see cref="ReadOnlyArray{T}"/> at index zero.
     /// </summary>
     /// <returns>
-    /// A reference to the element of the <see cref="ReadOnlyArray{T}"/> at index zero, or <see langword="null"/> if <see cref="IsDefault"/> is true.
+    /// A reference to the element of the <see cref="ReadOnlyArray{T}"/> at index zero,
+    /// or <see langword="null"/> if <see cref="IsDefault"/> is true.
     /// </returns>
     public ref readonly T GetPinnableReference() =>
         ref MemoryMarshal.GetArrayDataReference(Inner!);
@@ -497,7 +505,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
         /// Advances the enumerator to the next element of the collection.
         /// </summary>
         /// <returns>
-        /// <see langword="true"/> if the enumerator was successfully advanced to the next element; otherwise, <see langword="false"/>.
+        /// <see langword="true"/> if the enumerator was successfully advanced to the next element;
+        /// otherwise, <see langword="false"/>.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool MoveNext() =>

@@ -1,6 +1,3 @@
-using System.Collections;
-using Ramstack.Internal;
-
 namespace Ramstack.Text;
 
 /// <summary>

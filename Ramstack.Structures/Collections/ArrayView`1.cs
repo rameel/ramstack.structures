@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Immutable;
-
-using Ramstack.Internal;
-
 namespace Ramstack.Collections;
 
 /// <summary>

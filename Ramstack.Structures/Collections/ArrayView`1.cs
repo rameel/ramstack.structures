@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Immutable;
-
-using Ramstack.Internal;
-
 namespace Ramstack.Collections;
 
 /// <summary>
@@ -201,7 +196,28 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ref readonly T GetPinnableReference()
     {
-        // To match the behavior of ReadOnlySpan<T>
+        //
+        // Normalize the returned reference.
+        // We must not return a reference to an element outside the bounds of our view
+        // when the view is empty (_count = 0), even if it points to a valid element
+        // in the underlying array. In this case, we return a null reference.
+        //
+        // Examples:
+        //
+        // Full array (_array):
+        // [0][1][2][3][4][5][6][7][8][9]
+        //  |--------------------------|
+        //
+        // Case 1: Non-empty view (_index = 3, _count = 4)
+        //          [3][4][5][6]
+        //           ^        ^
+        //           |--------| <- valid range for this view
+        //
+        // Case 2: Empty view (_index = 3, _count = 0)
+        //          [3][4][5][6]
+        //           ^
+        //           | <- no valid reference for this view
+        //
 
         ref var p = ref Unsafe.NullRef<T>();
 
@@ -219,8 +235,9 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
         AsSpan().CopyTo(destination);
 
     /// <summary>
-    /// Attempts to copy the contents of this <see cref="ArrayView{T}"/> into a destination <see cref="Span{T}"/>
-    /// and returns a value to indicate whether the operation succeeded.
+    /// Attempts to copy the contents of this <see cref="ArrayView{T}"/>
+    /// into a destination <see cref="Span{T}"/> and returns a value to indicate
+    /// whether the operation succeeded.
     /// </summary>
     /// <param name="destination">The span to copy items into.</param>
     /// <returns>
@@ -302,7 +319,8 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
         new(segment.Array!, segment.Offset, segment.Count, dummy: 0);
 
     /// <summary>
-    /// Returns a string representation of the current instance's state, intended for debugging purposes.
+    /// Returns a string representation of the current instance's state,
+    /// intended for debugging purposes.
     /// </summary>
     /// <returns>
     /// A string containing information about the current instance.
@@ -363,9 +381,9 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal Enumerator(ArrayView<T> view)
         {
-            _array = view._array;
             _index = view._index - 1;
             _final = view._index + view._count;
+            _array = view._array;
         }
 
         /// <inheritdoc cref="IEnumerator.MoveNext" />
@@ -408,9 +426,9 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
         /// <param name="view">The <see cref="ArrayView{T}"/> to iterate through its elements.</param>
         public ArrayViewEnumerator(ArrayView<T> view)
         {
-            _array = view._array;
             _index = view._index - 1;
             _final = view._index + view._count;
+            _array = view._array;
         }
 
         /// <inheritdoc />

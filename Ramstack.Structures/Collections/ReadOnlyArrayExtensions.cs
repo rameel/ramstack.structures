@@ -1,5 +1,3 @@
-using System.Collections.Immutable;
-
 namespace Ramstack.Collections;
 
 /// <summary>
@@ -70,19 +68,22 @@ public static partial class ReadOnlyArrayExtensions
     /// <param name="array">The <see cref="ReadOnlyArray{T}"/> instance.</param>
     /// <param name="value">The object to locate in array.</param>
     /// <returns>
-    /// The zero-based index of the first occurrence of <paramref name="value"/> in the <paramref name="array"/>, if found; otherwise, <c>-1</c>.
+    /// The zero-based index of the first occurrence of <paramref name="value"/>
+    /// in the <paramref name="array"/>, if found; otherwise, <c>-1</c>.
     /// </returns>
     public static int IndexOf<T>(this ReadOnlyArray<T> array, T value) =>
         Array.IndexOf(array.Inner!, value);
 
     /// <summary>
-    /// Searches for the specified object and returns the index of the last occurrence within the entire <see cref="ReadOnlyArray{T}"/>.
+    /// Searches for the specified object and returns the index
+    /// of the last occurrence within the entire <see cref="ReadOnlyArray{T}"/>.
     /// </summary>
     /// <typeparam name="T">The type of element in the array.</typeparam>
     /// <param name="array">The <see cref="ReadOnlyArray{T}"/> instance.</param>
     /// <param name="value">The object to locate in array.</param>
     /// <returns>
-    /// The zero-based index of the last occurrence of <paramref name="value"/> in the <paramref name="array"/>, if found; otherwise, <c>-1</c>.
+    /// The zero-based index of the last occurrence of <paramref name="value"/>
+    /// in the <paramref name="array"/>, if found; otherwise, <c>-1</c>.
     /// </returns>
     public static int LastIndexOf<T>(this ReadOnlyArray<T> array, T value) =>
         Array.LastIndexOf(array.Inner!, value);

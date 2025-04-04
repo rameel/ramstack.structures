@@ -148,7 +148,7 @@ public static class ArrayViewExtensions
     {
         if (list is not null)
         {
-            var array = ListAccessor<T>.GetBuffer(list);
+            var array = ListAccessor<T>.GetArray(list);
             var count = Math.Min(list.Count, array.Length);
 
             return new ArrayView<T>(array, 0, count);
@@ -156,27 +156,6 @@ public static class ArrayViewExtensions
 
         return ArrayView<T>.Empty;
     }
-
-    #region Inner type: ListAccessor<T>
-
-    /// <summary>
-    /// Provides low-level access to the internal array buffer of a <see cref="List{T}"/>.
-    /// </summary>
-    /// <typeparam name="T">The type of the elements in the list.</typeparam>
-    private static class ListAccessor<T>
-    {
-        /// <summary>
-        /// Retrieves a reference to the internal array buffer of the specified <see cref="List{T}"/>.
-        /// </summary>
-        /// <param name="list">The list whose internal buffer is to be accessed.</param>
-        /// <returns>
-        /// A reference to the internal array used by the list.
-        /// </returns>
-        [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "_items")]
-        public static extern ref T[] GetBuffer(List<T> list);
-    }
-
-    #endregion
 
     #endif
 }

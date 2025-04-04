@@ -16,7 +16,8 @@ public static class StringViewExtensions
         new(value ?? "");
 
     /// <summary>
-    /// Creates a new <see cref="StringView"/> over a portion of the target string from a specified position to the end of the string.
+    /// Creates a new <see cref="StringView"/> over a portion of the target string
+    /// from a specified position to the end of the string.
     /// </summary>
     /// <param name="value">The target string.</param>
     /// <param name="index">The index at which to begin this slice.</param>
@@ -27,7 +28,8 @@ public static class StringViewExtensions
         new(value ?? "", index);
 
     /// <summary>
-    /// Creates a new <see cref="StringView"/> over a portion of the target string from a specified position for a specified number of characters.
+    /// Creates a new <see cref="StringView"/> over a portion of the target string
+    /// from a specified position for a specified number of characters.
     /// </summary>
     /// <param name="value">The target string.</param>
     /// <param name="index">The index at which to begin this slice.</param>

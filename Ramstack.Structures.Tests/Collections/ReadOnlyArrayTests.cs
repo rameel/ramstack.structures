@@ -583,6 +583,19 @@ public class ReadOnlyArrayTests
         }
     }
 
+    [TestCase(0)]
+    [TestCase(1)]
+    [TestCase(9)]
+    public void Linq_ToList(int count)
+    {
+        var array = CreateArray(count).ToReadOnlyArray();
+        var list = array.ToList();
+
+        Assert.That(list.Count, Is.EqualTo(count));
+        Assert.That(list.Capacity, Is.EqualTo(count));
+        Assert.That(list, Is.EqualTo(array));
+    }
+
     private static int[] CreateArray(int length) =>
         Enumerable.Range(0, length).ToArray();
 }

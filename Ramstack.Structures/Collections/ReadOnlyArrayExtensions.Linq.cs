@@ -392,15 +392,22 @@ public static partial class ReadOnlyArrayExtensions
     /// <inheritdoc cref="Enumerable.ToList{TSource}"/>
     public static List<T> ToList<T>(this ReadOnlyArray<T> source)
     {
-        #if NET8_0_OR_GREATER
+        #if NET9_0_OR_GREATER
+        var list = new List<T>();
+
+        ListAccessor<T>.GetArray(list) = source.ToArray();
+        ListAccessor<T>.GetCount(list) = source.Length;
+
+        return list;
+        #elif NET8_0_OR_GREATER
         var list = new List<T>(source.Length);
 
         System.Runtime.InteropServices.CollectionsMarshal.SetCount(list, source.Length);
-        source.CopyTo(System.Runtime.InteropServices.CollectionsMarshal.AsSpan(list));
+        source.TryCopyTo(System.Runtime.InteropServices.CollectionsMarshal.AsSpan(list));
 
         return list;
         #else
-        return source.Inner!.ToList();
+        return [..source.Inner!];
         #endif
     }
 

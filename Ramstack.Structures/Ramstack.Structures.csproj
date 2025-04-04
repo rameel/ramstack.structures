@@ -40,13 +40,17 @@ Ramstack.Collections.ReadOnlyArray&lt;T&gt;</Description>
   </PropertyGroup>
 
   <ItemGroup>
+    <Using Include="JetBrains.Annotations" />
+    <Using Include="Ramstack.Internal" />
+    <Using Include="System.Collections" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.Collections.Immutable" />
     <Using Include="System.ComponentModel" />
     <Using Include="System.Diagnostics" />
     <Using Include="System.Diagnostics.CodeAnalysis" />
     <Using Include="System.Globalization" />
     <Using Include="System.Runtime.CompilerServices" />
     <Using Include="System.Runtime.InteropServices" />
-    <Using Include="JetBrains.Annotations" />
   </ItemGroup>
 
   <ItemGroup>

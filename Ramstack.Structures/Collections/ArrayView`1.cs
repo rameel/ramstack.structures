@@ -381,9 +381,9 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal Enumerator(ArrayView<T> view)
         {
-            _array = view._array;
             _index = view._index - 1;
             _final = view._index + view._count;
+            _array = view._array;
         }
 
         /// <inheritdoc cref="IEnumerator.MoveNext" />
@@ -426,9 +426,9 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
         /// <param name="view">The <see cref="ArrayView{T}"/> to iterate through its elements.</param>
         public ArrayViewEnumerator(ArrayView<T> view)
         {
-            _array = view._array;
             _index = view._index - 1;
             _final = view._index + view._count;
+            _array = view._array;
         }
 
         /// <inheritdoc />

@@ -497,8 +497,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal Enumerator(T[] array)
         {
-            _array = array;
             _index = -1;
+            _array = array;
         }
 
         /// <summary>

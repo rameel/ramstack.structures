@@ -1121,9 +1121,9 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal Enumerator(StringView view)
         {
-            _value = view._value;
             _index = view._index - 1;
             _final = view._index + view._length;
+            _value = view._value;
         }
 
         /// <inheritdoc cref="IEnumerator.MoveNext" />
@@ -1166,9 +1166,9 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         /// <param name="view">The <see cref="StringView"/> to iterate through its characters.</param>
         public StringViewEnumerator(StringView view)
         {
-            _value = view._value;
             _index = view._index - 1;
             _final = view._index + view._length;
+            _value = view._value;
         }
 
         /// <inheritdoc />

@@ -121,6 +121,9 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
     /// <param name="options">A bitwise combination of <see cref="CompareOptions"/> values
     /// that specify how the comparison should be performed.</param>
     private sealed class CultureAwareComparer(CompareInfo info, CompareOptions options) : StringViewComparer
+        #if NET9_0_OR_GREATER
+        , IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>
+        #endif
     {
         /// <summary>
         /// A singleton instance of the <see cref="T:CultureAwareComparer"/> class
@@ -147,6 +150,20 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
         /// <inheritdoc />
         public override int Compare(StringView x, StringView y) =>
             info.IndexOf(x, y, options);
+
+        #if NET9_0_OR_GREATER
+        /// <inheritdoc />
+        bool IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>.Equals(ReadOnlySpan<char> alternate, StringView other) =>
+            info.IndexOf(alternate, other, options) == 0;
+
+        /// <inheritdoc />
+        int IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>.GetHashCode(ReadOnlySpan<char> alternate) =>
+            info.GetHashCode(alternate, options);
+
+        /// <inheritdoc />
+        StringView IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>.Create(ReadOnlySpan<char> alternate) =>
+            alternate.ToString();
+        #endif
     }
 
     #endregion
@@ -158,6 +175,9 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
     /// that performs a case-sensitive ordinal string comparison.
     /// </summary>
     private sealed class OrdinalComparer : StringViewComparer
+        #if NET9_0_OR_GREATER
+        , IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>
+        #endif
     {
         /// <summary>
         /// A singleton instance of the <see cref="T:OrdinalComparer"/> class.
@@ -175,6 +195,20 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
         /// <inheritdoc />
         public override int GetHashCode(StringView obj) =>
             obj.GetHashCode();
+
+        #if NET9_0_OR_GREATER
+        /// <inheritdoc />
+        bool IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>.Equals(ReadOnlySpan<char> alternate, StringView other) =>
+            alternate.SequenceEqual(other);
+
+        /// <inheritdoc />
+        int IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>.GetHashCode(ReadOnlySpan<char> alternate) =>
+            string.GetHashCode(alternate);
+
+        /// <inheritdoc />
+        StringView IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>.Create(ReadOnlySpan<char> alternate) =>
+            alternate.ToString();
+        #endif
     }
 
     #endregion
@@ -186,6 +220,9 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
     /// that performs a case-insensitive ordinal string comparison.
     /// </summary>
     private sealed class OrdinalIgnoreCaseComparer : StringViewComparer
+        #if NET9_0_OR_GREATER
+        , IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>
+        #endif
     {
         /// <summary>
         /// A singleton instance of the <see cref="T:OrdinalIgnoreCaseComparer"/> class.
@@ -203,6 +240,20 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
         /// <inheritdoc />
         public override int GetHashCode(StringView obj) =>
             obj.GetHashCode(StringComparison.OrdinalIgnoreCase);
+
+        #if NET9_0_OR_GREATER
+        /// <inheritdoc />
+        bool IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>.Equals(ReadOnlySpan<char> alternate, StringView other) =>
+            alternate.Equals(other, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc />
+        int IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>.GetHashCode(ReadOnlySpan<char> alternate) =>
+            string.GetHashCode(alternate, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc />
+        StringView IAlternateEqualityComparer<ReadOnlySpan<char>, StringView>.Create(ReadOnlySpan<char> alternate) =>
+            alternate.ToString();
+        #endif
     }
 
     #endregion

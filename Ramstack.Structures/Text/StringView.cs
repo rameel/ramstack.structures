@@ -1100,19 +1100,10 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         private readonly string? _value;
         private int _index;
         private readonly int _final;
+        private char _ch;
 
         /// <inheritdoc cref="IEnumerator{T}.Current" />
-        public readonly char Current
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                if ((uint)_index >= (uint)_final)
-                    ThrowHelper.ThrowArgumentOutOfRangeException();
-
-                return _value!.GetRawStringData(_index);
-            }
-        }
+        public readonly char Current => _ch;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Enumerator"/> structure.
@@ -1130,8 +1121,24 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool MoveNext()
         {
-            ++_index;
-            return (uint)_index < (uint)_final;
+            #if NET9_0_OR_GREATER
+            //
+            // The "_value is not null" condition is hoisted and checked only once
+            //
+            if (_value is not null && (uint)++_index < (uint)_final)
+            {
+                _ch = _value!.GetRawStringData(_index);
+                return true;
+            }
+            #else
+            if ((uint)++_index < (uint)_final)
+            {
+                _ch = _value!.GetRawStringData(_index);
+                return true;
+            }
+            #endif
+
+            return false;
         }
     }
 
@@ -1147,18 +1154,10 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         private readonly string? _value;
         private int _index;
         private readonly int _final;
+        private char _ch;
 
         /// <inheritdoc />
-        public char Current
-        {
-            get
-            {
-                if ((uint)_index >= (uint)_final)
-                    ThrowHelper.ThrowArgumentOutOfRangeException();
-
-                return _value!.GetRawStringData(_index);
-            }
-        }
+        public char Current => _ch;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StringViewEnumerator"/> class.
@@ -1174,8 +1173,13 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         /// <inheritdoc />
         public bool MoveNext()
         {
-            ++_index;
-            return (uint)_index < (uint)_final;
+            if ((uint)++_index < (uint)_final)
+            {
+                _ch = _value!.GetRawStringData(_index);
+                return true;
+            }
+
+            return false;
         }
 
         /// <inheritdoc />

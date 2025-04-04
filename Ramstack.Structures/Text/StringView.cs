@@ -295,6 +295,9 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// </returns>
     public StringView TrimStart(ReadOnlySpan<char> trimChars)
     {
+        if (trimChars.Length == 0)
+            return TrimStart();
+
         var start = _index;
         var final = _index + _length;
         var value = _value;
@@ -381,6 +384,9 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// </returns>
     public StringView TrimEnd(ReadOnlySpan<char> trimChars)
     {
+        if (trimChars.Length == 0)
+            return TrimEnd();
+
         var start = _index;
         var final = _index + _length - 1;
         var value = _value;
@@ -479,6 +485,9 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// </returns>
     public StringView Trim(ReadOnlySpan<char> trimChars)
     {
+        if (trimChars.Length == 0)
+            return Trim();
+
         var start = _index;
         var final = _index + _length - 1;
         var value = _value;
@@ -487,6 +496,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         {
             for (; start <= final; start++)
             {
+
                 for (var i = 0; i < trimChars.Length; i++)
                     if (value.GetRawStringData(start) == trimChars[i])
                         goto MATCHED;

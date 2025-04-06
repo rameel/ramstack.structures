@@ -136,4 +136,34 @@ public class StringViewComparerTests
         Assert.That(c1.Equals("test", "TEST"), Is.True);
         Assert.That(c2.Equals("test", "TEST"), Is.True);
     }
+
+    #if NET9_0_OR_GREATER
+    [Test]
+    public void AlternateComparer_Ordinal()
+    {
+        var dictionary = new Dictionary<StringView, int>(StringViewComparer.Ordinal)
+        {
+            ["test"] = 1
+        };
+
+        var lookup = dictionary.GetAlternateLookup<ReadOnlySpan<char>>();
+        Assert.That(lookup.TryGetValue("TEST", out _), Is.False);
+        Assert.That(lookup.TryGetValue("test", out var v), Is.True);
+        Assert.That(v, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void AlternateComparer_OrdinalIgnoreCase()
+    {
+        var dictionary = new Dictionary<StringView, int>(StringViewComparer.OrdinalIgnoreCase)
+        {
+            ["TEST"] = 1
+        };
+
+        var lookup = dictionary.GetAlternateLookup<ReadOnlySpan<char>>();
+        Assert.That(lookup.TryGetValue("text", out _), Is.False);
+        Assert.That(lookup.TryGetValue("test", out var v), Is.True);
+        Assert.That(v, Is.EqualTo(1));
+    }
+    #endif
 }

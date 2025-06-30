@@ -30,7 +30,7 @@ internal static class JitHelpers
     public static ref T GetRawArrayData<T>(this T[] array, int index)
     {
         // It's valid for a ref to point just past the end of an array, and it'll
-        // be properly GC-tracked. (Though dereferencing it may result in undefined behavior.)
+        // be properly GC-tracked. (Though dereferencing it may result in undefined behavior)
         return ref Unsafe.Add(ref MemoryMarshal.GetArrayDataReference(array), (nint)(uint)index);
     }
 }

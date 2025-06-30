@@ -64,11 +64,6 @@ Ramstack.Collections.ReadOnlyArray&lt;T&gt;</Description>
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="System.Collections.Immutable" />
-  </ItemGroup>
-
-
   <ItemGroup>
     <None Include="..\README.md" Link="Properties\README.md">
       <Pack>True</Pack>

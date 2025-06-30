@@ -325,8 +325,10 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         {
             for (; start < final; start++)
             {
-                for (var i = 0; i < trimChars.Length; i++)
-                    if (value.GetRawStringData(start) == trimChars[i])
+                var ch = value.GetRawStringData(start);
+
+                foreach (var trimChar in trimChars)
+                    if (ch == trimChar)
                         goto MATCHED;
 
                 break;
@@ -417,8 +419,10 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         {
             for (; final >= start; final--)
             {
-                for (var i = 0; i < trimChars.Length; i++)
-                    if (value.GetRawStringData(final) == trimChars[i])
+                var ch = value.GetRawStringData(final);
+
+                foreach (var trimChar in trimChars)
+                    if (ch == trimChar)
                         goto MATCHED;
 
                 break;
@@ -521,8 +525,10 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         {
             for (; start <= final; start++)
             {
-                for (var i = 0; i < trimChars.Length; i++)
-                    if (value.GetRawStringData(start) == trimChars[i])
+                var ch = value.GetRawStringData(start);
+
+                foreach (var trimChar in trimChars)
+                    if (ch == trimChar)
                         goto MATCHED;
 
                 break;
@@ -531,8 +537,10 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
 
             for (; final > start; final--)
             {
-                for (var i = 0; i < trimChars.Length; i++)
-                    if (value.GetRawStringData(final) == trimChars[i])
+                var ch = value.GetRawStringData(final);
+
+                foreach (var trimChar in trimChars)
+                    if (ch == trimChar)
                         goto MATCHED;
 
                 break;

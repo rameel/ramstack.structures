@@ -1,10 +1,10 @@
 namespace Ramstack.Collections;
 
+#if NET9_0_OR_GREATER
+
 [TestFixture]
 public class ArrayViewExtensionsTests
 {
-    #if NET9_0_OR_GREATER
-
     [Test]
     public void List_AsView_Empty()
     {
@@ -25,5 +25,6 @@ public class ArrayViewExtensionsTests
         Assert.That(view, Is.EquivalentTo(list));
     }
 
-    #endif
 }
+
+#endif

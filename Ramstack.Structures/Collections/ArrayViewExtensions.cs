@@ -149,9 +149,13 @@ public static class ArrayViewExtensions
         if (list is not null)
         {
             var array = ListAccessor<T>.GetArray(list);
-            var count = Math.Min(list.Count, array.Length);
+            _ = array.Length;
 
-            return new ArrayView<T>(array, 0, count);
+            //
+            // SCG.List<T> maintains internal invariants, so we can safely use the unchecked constructor
+            // to bypass redundant bounds checks for better performance.
+            //
+            return new ArrayView<T>(array, 0, list.Count, unused: 0);
         }
 
         return ArrayView<T>.Empty;

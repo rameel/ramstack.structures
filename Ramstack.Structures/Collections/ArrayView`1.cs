@@ -112,7 +112,7 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     /// <param name="length">The number of elements in the range.</param>
     /// <param name="unused">Unused parameter, exists solely to disambiguate overloads.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private ArrayView(T[] array, int index, int length, int unused)
+    internal ArrayView(T[] array, int index, int length, int unused)
     {
         _index = index;
         _count = length;

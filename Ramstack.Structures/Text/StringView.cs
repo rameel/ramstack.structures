@@ -737,8 +737,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         if (obj is null)
             return _length == 0;
 
-        if (obj is StringView)
-            return Equals(this, Unsafe.Unbox<StringView>(obj));
+        if (obj is StringView view)
+            return Equals(this, view);
 
         return obj is string s && Equals(s);
     }

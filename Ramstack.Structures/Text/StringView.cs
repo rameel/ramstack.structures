@@ -312,7 +312,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <returns>
     /// The trimmed <see cref="StringView"/>.
     /// </returns>
-    public StringView TrimStart(ReadOnlySpan<char> trimChars)
+    public StringView TrimStart(params ReadOnlySpan<char> trimChars)
     {
         if (trimChars.Length == 0)
             return TrimStart();
@@ -404,7 +404,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <returns>
     /// The trimmed <see cref="StringView"/>.
     /// </returns>
-    public StringView TrimEnd(ReadOnlySpan<char> trimChars)
+    public StringView TrimEnd(params ReadOnlySpan<char> trimChars)
     {
         if (trimChars.Length == 0)
             return TrimEnd();
@@ -508,7 +508,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <returns>
     /// The trimmed <see cref="StringView"/>.
     /// </returns>
-    public StringView Trim(ReadOnlySpan<char> trimChars)
+    public StringView Trim(params ReadOnlySpan<char> trimChars)
     {
         if (trimChars.Length == 0)
             return Trim();

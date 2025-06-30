@@ -47,16 +47,6 @@ foreach (ref readonly HeavyStruct s in view)
 }
 
 ```
-## Changelog
-
-### 1.2.2
-- Optimize `ArrayView.Create` method for empty collection expression
-
-### 1.2.1
-- Add `List<T>` to `ArrayView<T>` extension for NET9.0+
-
-### 1.2.0
-- Add `Trim` overloads to `StringView` class
 
 ## Supported versions
 

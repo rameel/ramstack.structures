@@ -101,17 +101,23 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     /// Initializes a new instance of the <see cref="ArrayView{T}"/> structure that creates
     /// a view for the specified range of the elements in the specified array.
     /// </summary>
+    /// <remarks>
+    /// This constructor is intentionally minimal and skips all argument validations,
+    /// as the caller is responsible for ensuring correctness (e.g.,
+    /// <paramref name="array"/> is non-null, <paramref name="index"/> and
+    /// <paramref name="length"/> are within bounds).
+    /// </remarks>
     /// <param name="array">The array to wrap.</param>
     /// <param name="index">The zero-based index of the first element in the range.</param>
     /// <param name="length">The number of elements in the range.</param>
-    /// <param name="dummy">The dummy parameter.</param>
+    /// <param name="unused">Unused parameter, exists solely to disambiguate overloads.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private ArrayView(T[] array, int index, int length, int dummy)
+    private ArrayView(T[] array, int index, int length, int unused)
     {
         _index = index;
         _count = length;
         _array = array;
-        _ = dummy;
+        _ = unused;
     }
 
     /// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
@@ -132,7 +138,7 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
         if ((uint)index > (uint)_count)
             ThrowHelper.ThrowArgumentOutOfRangeException();
 
-        return new ArrayView<T>(_array!, _index + index, _count - index, dummy: 0);
+        return new ArrayView<T>(_array!, _index + index, _count - index, unused: 0);
     }
 
     /// <summary>
@@ -157,7 +163,7 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
                 ThrowHelper.ThrowArgumentOutOfRangeException();
         }
 
-        return new ArrayView<T>(_array!, _index + index, count, dummy: 0);
+        return new ArrayView<T>(_array!, _index + index, count, unused: 0);
     }
 
     /// <summary>
@@ -316,7 +322,7 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     /// A <see cref="ArrayView{T}"/> representation of the array segment.
     /// </returns>
     public static implicit operator ArrayView<T>(ArraySegment<T> segment) =>
-        new(segment.Array!, segment.Offset, segment.Count, dummy: 0);
+        new(segment.Array!, segment.Offset, segment.Count, unused: 0);
 
     /// <summary>
     /// Returns a string representation of the current instance's state,

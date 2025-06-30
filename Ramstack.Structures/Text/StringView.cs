@@ -45,7 +45,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// </summary>
     /// <param name="value">The string to wrap.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public StringView(string value) : this(value, 0, value.Length, dummy: 0)
+    public StringView(string value) : this(value, 0, value.Length, unused: 0)
     {
     }
 
@@ -96,17 +96,23 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// Initializes a new instance of the <see cref="StringView"/> structure that creates
     /// a view for the specified range of the characters in the specified string.
     /// </summary>
+    /// <remarks>
+    /// This constructor is intentionally minimal and skips all argument validations,
+    /// as the caller is responsible for ensuring correctness (e.g.,
+    /// <paramref name="value"/> is non-null, <paramref name="index"/> and
+    /// <paramref name="length"/> are within bounds).
+    /// </remarks>
     /// <param name="value">The string to wrap.</param>
     /// <param name="index">The zero-based index of the first character in the range.</param>
     /// <param name="length">The number of characters in the range.</param>
-    /// <param name="dummy">The dummy parameter.</param>
+    /// <param name="unused">Unused parameter, exists solely to disambiguate overloads.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private StringView(string value, int index, int length, int dummy)
+    private StringView(string value, int index, int length, int unused)
     {
         _index = index;
         _length = length;
         _value = value;
-        _ = dummy;
+        _ = unused;
     }
 
     /// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
@@ -156,7 +162,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         if ((uint)start > (uint)_length)
             ThrowHelper.ThrowArgumentOutOfRangeException();
 
-        return new StringView(_value!, _index + start, _length - start, dummy: 0);
+        return new StringView(_value!, _index + start, _length - start, unused: 0);
     }
 
     /// <summary>
@@ -182,7 +188,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
                 ThrowHelper.ThrowArgumentOutOfRangeException();
         }
 
-        return new StringView(_value!, _index + start, length, dummy: 0);
+        return new StringView(_value!, _index + start, length, unused: 0);
     }
 
     /// <summary>
@@ -256,7 +262,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
                 if (!char.IsWhiteSpace(value.GetRawStringData(start)))
                     break;
 
-        return new StringView(value!, start, final - start, dummy: 0);
+        return new StringView(value!, start, final - start, unused: 0);
     }
 
     /// <summary>
@@ -277,7 +283,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
                 if (value.GetRawStringData(start) != trimChar)
                     break;
 
-        return new StringView(value!, start, final - start, dummy: 0);
+        return new StringView(value!, start, final - start, unused: 0);
     }
 
     /// <summary>
@@ -328,7 +334,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
             }
         }
 
-        return new StringView(value!, start, final - start, dummy: 0);
+        return new StringView(value!, start, final - start, unused: 0);
     }
 
     /// <summary>
@@ -348,7 +354,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
                 if (!char.IsWhiteSpace(value.GetRawStringData(final)))
                     break;
 
-        return new StringView(value!, start, final + 1 - start, dummy: 0);
+        return new StringView(value!, start, final + 1 - start, unused: 0);
     }
 
     /// <summary>
@@ -369,7 +375,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
                 if (value.GetRawStringData(final) != trimChar)
                     break;
 
-        return new StringView(value!, start, final + 1 - start, dummy: 0);
+        return new StringView(value!, start, final + 1 - start, unused: 0);
     }
 
     /// <summary>
@@ -420,7 +426,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
             }
         }
 
-        return new StringView(value!, start, final + 1 - start, dummy: 0);
+        return new StringView(value!, start, final + 1 - start, unused: 0);
     }
 
     /// <summary>
@@ -446,7 +452,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
                     break;
         }
 
-        return new StringView(value!, start, final + 1 - start, dummy: 0);
+        return new StringView(value!, start, final + 1 - start, unused: 0);
     }
 
     /// <summary>
@@ -473,7 +479,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
                     break;
         }
 
-        return new StringView(value!, start, final + 1 - start, dummy: 0);
+        return new StringView(value!, start, final + 1 - start, unused: 0);
     }
 
     /// <summary>
@@ -534,7 +540,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
             }
         }
 
-        return new StringView(value!, start, final + 1 - start, dummy: 0);
+        return new StringView(value!, start, final + 1 - start, unused: 0);
     }
 
     /// <summary>

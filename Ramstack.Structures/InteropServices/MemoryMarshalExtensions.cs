@@ -119,5 +119,50 @@ public static class MemoryMarshalExtensions
 
             return new ArrayView<T>(array, index, length, unused: 0);
         }
+
+        /// <summary>
+        /// Attempts to get a <see cref="StringView"/> from the underlying memory buffer.
+        /// </summary>
+        /// <param name="memory">Read-only memory containing a block of characters.</param>
+        /// <param name="view">When this method returns, contains the <see cref="StringView"/>
+        /// retrieved from the underlying read-only memory buffer.</param>
+        /// <returns>
+        /// <see langword="true"/> if the method successfully retrieves the underlying string;
+        /// otherwise, <see langword="false"/>.
+        /// </returns>
+        public static bool TryGetStringView(ReadOnlyMemory<char> memory, out StringView view)
+        {
+            if (MemoryMarshal.TryGetString(memory, out var value, out var start, out var length))
+            {
+                view = new StringView(value, start, length, unused: 0);
+                return true;
+            }
+
+            view = default;
+            return false;
+        }
+
+        /// <summary>
+        /// Attempts to get a <see cref="StringView"/> from the underlying memory buffer.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the read-only memory buffer.</typeparam>
+        /// <param name="memory">Read-only memory buffer.</param>
+        /// <param name="view">When this method returns, contains the <see cref="ArrayView{T}"/>
+        /// retrieved from the underlying read-only memory buffer.</param>
+        /// <returns>
+        /// <see langword="true"/> if the underlying memory buffer represents an array segment;
+        /// otherwise, <see langword="false"/>.
+        /// </returns>
+        public static bool TryGetArrayView<T>(ReadOnlyMemory<T> memory, out ArrayView<T> view)
+        {
+            if (MemoryMarshal.TryGetArray(memory, out var segment))
+            {
+                view = segment;
+                return true;
+            }
+
+            view = default;
+            return false;
+        }
     }
 }

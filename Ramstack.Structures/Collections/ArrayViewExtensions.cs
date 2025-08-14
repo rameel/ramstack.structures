@@ -12,7 +12,6 @@ public static class ArrayViewExtensions
     /// <returns>
     /// An <see cref="ArrayView{T}"/> representing the array.
     /// </returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ArrayView<T> AsView<T>(this T[]? value) =>
         new(value ?? []);
 
@@ -24,7 +23,6 @@ public static class ArrayViewExtensions
     /// <returns>
     /// An <see cref="ArrayView{T}"/> representing the array.
     /// </returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ArrayView<T> AsView<T>(this T[]? value, int index) =>
         new(value ?? [], index);
 
@@ -37,7 +35,6 @@ public static class ArrayViewExtensions
     /// <returns>
     /// An <see cref="ArrayView{T}"/> representing the array.
     /// </returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ArrayView<T> AsView<T>(this T[]? value, int index, int count) =>
         new(value ?? [], index, count);
 

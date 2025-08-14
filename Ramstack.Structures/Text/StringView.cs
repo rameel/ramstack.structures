@@ -107,7 +107,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <param name="length">The number of characters to include in the view.</param>
     /// <param name="unused">Unused parameter used only to differentiate between overloads.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private StringView(string value, int index, int length, int unused)
+    internal StringView(string value, int index, int length, int unused)
     {
         _index = index;
         _length = length;

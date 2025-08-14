@@ -34,7 +34,7 @@ public static class ArrayViewExtensions
     /// starting at a specified position for a specified number of elements.
     /// </summary>
     /// <typeparam name="T">The type of elements in the array.</typeparam>
-    /// <param name="value">The array to create a view over. Can be null.</param>
+    /// <param name="value">The array to create a view over.</param>
     /// <param name="index">The zero-based starting position of the view in the array.</param>
     /// <param name="count">The number of elements to include in the view.</param>
     /// <returns>

@@ -54,7 +54,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// a view for the specified range of the characters in the specified string.
     /// </summary>
     /// <param name="value">The string to wrap.</param>
-    /// <param name="index">The zero-based index of the first character in the range.</param>
+    /// <param name="index">The zero-based starting position of the view in the string.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public StringView(string value, int index)
     {
@@ -71,8 +71,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// a view for the specified range of the characters in the specified string.
     /// </summary>
     /// <param name="value">The string to wrap.</param>
-    /// <param name="index">The zero-based index of the first character in the range.</param>
-    /// <param name="length">The number of characters in the range.</param>
+    /// <param name="index">The zero-based starting position of the view in the string.</param>
+    /// <param name="length">The number of characters to include in the view.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public StringView(string value, int index, int length)
     {
@@ -103,9 +103,9 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// <paramref name="length"/> are within bounds).
     /// </remarks>
     /// <param name="value">The string to wrap.</param>
-    /// <param name="index">The zero-based index of the first character in the range.</param>
-    /// <param name="length">The number of characters in the range.</param>
-    /// <param name="unused">Unused parameter, exists solely to disambiguate overloads.</param>
+    /// <param name="index">The zero-based starting position of the view in the string.</param>
+    /// <param name="length">The number of characters to include in the view.</param>
+    /// <param name="unused">Unused parameter used only to differentiate between overloads.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private StringView(string value, int index, int length, int unused)
     {

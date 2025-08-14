@@ -59,7 +59,7 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     /// a view for the specified range of the elements in the specified array.
     /// </summary>
     /// <param name="array">The array to wrap.</param>
-    /// <param name="index">The zero-based index of the first element in the range.</param>
+    /// <param name="index">The zero-based starting position of the view in the array.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ArrayView(T[] array, int index)
     {
@@ -76,8 +76,8 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     /// a view for the specified range of the elements in the specified array.
     /// </summary>
     /// <param name="array">The array to wrap.</param>
-    /// <param name="index">The zero-based index of the first element in the range.</param>
-    /// <param name="length">The number of elements in the range.</param>
+    /// <param name="index">The zero-based starting position of the view in the array.</param>
+    /// <param name="length">The number of characters to include in the view.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ArrayView(T[] array, int index, int length)
     {
@@ -108,9 +108,9 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     /// <paramref name="length"/> are within bounds).
     /// </remarks>
     /// <param name="array">The array to wrap.</param>
-    /// <param name="index">The zero-based index of the first element in the range.</param>
-    /// <param name="length">The number of elements in the range.</param>
-    /// <param name="unused">Unused parameter, exists solely to disambiguate overloads.</param>
+    /// <param name="index">The zero-based starting position of the view in the array.</param>
+    /// <param name="length">The number of characters to include in the view.</param>
+    /// <param name="unused">Unused parameter used only to differentiate between overloads.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal ArrayView(T[] array, int index, int length, int unused)
     {

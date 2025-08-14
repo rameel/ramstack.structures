@@ -8,32 +8,37 @@ public static class ArrayViewExtensions
     /// <summary>
     /// Creates a new <see cref="ArrayView{T}"/> over an array.
     /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
     /// <param name="value">The target array.</param>
     /// <returns>
-    /// An <see cref="ArrayView{T}"/> representing the array.
+    /// An <see cref="ArrayView{T}"/> representing the specified array.
     /// </returns>
     public static ArrayView<T> AsView<T>(this T[]? value) =>
         new(value ?? []);
 
     /// <summary>
-    /// Creates a new <see cref="ArrayView{T}"/> over a portion of the target array from a specified position to the end of the array.
+    /// Creates a new <see cref="ArrayView{T}"/> over a portion of the specified array,
+    /// starting at a specified position to the end of the array.
     /// </summary>
-    /// <param name="value">The target array.</param>
-    /// <param name="index">The index at which to begin the array view.</param>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="value">The array to create a view over.</param>
+    /// <param name="index">The zero-based starting position of the view in the array.</param>
     /// <returns>
-    /// An <see cref="ArrayView{T}"/> representing the array.
+    /// An <see cref="ArrayView{T}"/> representing the specified portion of the array.
     /// </returns>
     public static ArrayView<T> AsView<T>(this T[]? value, int index) =>
         new(value ?? [], index);
 
     /// <summary>
-    /// Creates a new <see cref="ArrayView{T}"/> over a portion of the target array from a specified position for a specified number of elements.
+    /// Creates a new <see cref="ArrayView{T}"/> over a portion of the specified array
+    /// starting at a specified position for a specified number of elements.
     /// </summary>
-    /// <param name="value">The target array.</param>
-    /// <param name="index">The index at which to begin the array view.</param>
-    /// <param name="count">The number of items in the array view.</param>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="value">The array to create a view over. Can be null.</param>
+    /// <param name="index">The zero-based starting position of the view in the array.</param>
+    /// <param name="count">The number of elements to include in the view.</param>
     /// <returns>
-    /// An <see cref="ArrayView{T}"/> representing the array.
+    /// An <see cref="ArrayView{T}"/> representing the specified portion of the array.
     /// </returns>
     public static ArrayView<T> AsView<T>(this T[]? value, int index, int count) =>
         new(value ?? [], index, count);

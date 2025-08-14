@@ -126,14 +126,14 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
         #endif
     {
         /// <summary>
-        /// A singleton instance of the <see cref="T:CultureAwareComparer"/> class
+        /// A singleton instance of the <see cref="StringViewComparer.CultureAwareComparer"/> class
         /// for invariant case-sensitive comparison.
         /// </summary>
         public static readonly CultureAwareComparer InvariantInstance =
             new(CultureInfo.InvariantCulture.CompareInfo, CompareOptions.None);
 
         /// <summary>
-        /// A singleton instance of the <see cref="T:CultureAwareComparer"/> class
+        /// A singleton instance of the <see cref="StringViewComparer.CultureAwareComparer"/> class
         /// for invariant case-insensitive comparison.
         /// </summary>
         public static readonly CultureAwareComparer InvariantIgnoreCaseInstance =
@@ -180,7 +180,7 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
         #endif
     {
         /// <summary>
-        /// A singleton instance of the <see cref="T:OrdinalComparer"/> class.
+        /// A singleton instance of the <see cref="StringViewComparer.OrdinalComparer"/> class.
         /// </summary>
         public static readonly OrdinalComparer Instance = new();
 
@@ -225,7 +225,7 @@ public abstract class StringViewComparer : IEqualityComparer<StringView>, ICompa
         #endif
     {
         /// <summary>
-        /// A singleton instance of the <see cref="T:OrdinalIgnoreCaseComparer"/> class.
+        /// A singleton instance of the <see cref="StringViewComparer.OrdinalIgnoreCaseComparer"/> class.
         /// </summary>
         public static readonly OrdinalIgnoreCaseComparer Instance = new();
 

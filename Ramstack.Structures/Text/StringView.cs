@@ -76,16 +76,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public StringView(string value, int index, int length)
     {
-        if (IntPtr.Size == 8)
-        {
-            if ((ulong)(uint)index + (uint)length > (uint)value.Length)
-                ThrowHelper.ThrowArgumentOutOfRangeException();
-        }
-        else
-        {
-            if ((uint)index > (uint)value.Length || (uint)length > (uint)(value.Length - index))
-                ThrowHelper.ThrowArgumentOutOfRangeException();
-        }
+        if ((uint)index > (uint)value.Length || (uint)length > (uint)(value.Length - index))
+            ThrowHelper.ThrowArgumentOutOfRangeException();
 
         _index = index;
         _length = length;
@@ -177,16 +169,8 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public StringView Slice(int start, int length)
     {
-        if (IntPtr.Size == 8)
-        {
-            if ((ulong)(uint)start + (uint)length > (uint)_length)
-                ThrowHelper.ThrowArgumentOutOfRangeException();
-        }
-        else
-        {
-            if ((uint)start > (uint)_length || (uint)length > (uint)(_length - start))
-                ThrowHelper.ThrowArgumentOutOfRangeException();
-        }
+        if ((uint)start > (uint)_length || (uint)length > (uint)(_length - start))
+            ThrowHelper.ThrowArgumentOutOfRangeException();
 
         return new StringView(_value!, _index + start, length, unused: 0);
     }

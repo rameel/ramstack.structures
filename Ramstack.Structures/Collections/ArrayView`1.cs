@@ -81,16 +81,8 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ArrayView(T[] array, int index, int length)
     {
-        if (IntPtr.Size == 8)
-        {
-            if ((ulong)(uint)index + (uint)length > (uint)array.Length)
-                ThrowHelper.ThrowArgumentOutOfRangeException();
-        }
-        else
-        {
-            if ((uint)index > (uint)array.Length || (uint)length > (uint)(array.Length - index))
-                ThrowHelper.ThrowArgumentOutOfRangeException();
-        }
+        if ((uint)index > (uint)array.Length || (uint)length > (uint)(array.Length - index))
+            ThrowHelper.ThrowArgumentOutOfRangeException();
 
         _index = index;
         _count = length;
@@ -152,16 +144,8 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ArrayView<T> Slice(int index, int count)
     {
-        if (IntPtr.Size == 8)
-        {
-            if ((ulong)(uint)index + (uint)count > (uint)_count)
-                ThrowHelper.ThrowArgumentOutOfRangeException();
-        }
-        else
-        {
-            if ((uint)index > (uint)_count || (uint)count > (uint)(_count - index))
-                ThrowHelper.ThrowArgumentOutOfRangeException();
-        }
+        if ((uint)index > (uint)_count || (uint)count > (uint)(_count - index))
+            ThrowHelper.ThrowArgumentOutOfRangeException();
 
         return new ArrayView<T>(_array!, _index + index, count, unused: 0);
     }

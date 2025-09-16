@@ -1,4 +1,4 @@
-﻿namespace Ramstack.InteropServices;
+namespace Ramstack.InteropServices;
 
 [TestFixture]
 public class MemoryMarshalTests

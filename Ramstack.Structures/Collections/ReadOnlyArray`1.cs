@@ -229,8 +229,7 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// The read-only view of the array.
     /// </returns>
     public ArrayView<T> AsView(int index) =>
-        // ReSharper disable once ReplaceSliceWithRangeIndexer
-        AsView().Slice(index);
+        new(Inner ?? [], index);
 
     /// <summary>
     /// Creates an <see cref="ArrayView{T}"/> over the current array
@@ -242,7 +241,7 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// The read-only view of the array.
     /// </returns>
     public ArrayView<T> AsView(int index, int count) =>
-        AsView().Slice(index, count);
+        new(Inner ?? [], index, count);
 
     /// <summary>
     /// Creates a new read-only memory region over the read-only array.

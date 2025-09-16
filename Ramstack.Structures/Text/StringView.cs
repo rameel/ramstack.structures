@@ -45,8 +45,10 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
     /// </summary>
     /// <param name="value">The string to wrap.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public StringView(string value) : this(value, 0, value.Length, unused: 0)
+    public StringView(string value)
     {
+        _length = value.Length;
+        _value = value;
     }
 
     /// <summary>

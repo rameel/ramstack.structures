@@ -243,7 +243,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         var final = _index + _length;
         var value = _value;
 
-        if (value != null)
+        if (value is not null)
             for (; start < final; start++)
                 if (!char.IsWhiteSpace(value.GetRawStringData(start)))
                     break;
@@ -264,7 +264,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         var final = _index + _length;
         var value = _value;
 
-        if (value != null)
+        if (value is not null)
             for (; start < final; start++)
                 if (value.GetRawStringData(start) != trimChar)
                     break;
@@ -307,7 +307,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         var final = _index + _length;
         var value = _value;
 
-        if (value != null)
+        if (value is not null)
         {
             for (; start < final; start++)
             {
@@ -337,7 +337,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         var final = _index + _length - 1;
         var value = _value;
 
-        if (value != null)
+        if (value is not null)
             for (; final >= start; final--)
                 if (!char.IsWhiteSpace(value.GetRawStringData(final)))
                     break;
@@ -358,7 +358,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         var final = _index + _length - 1;
         var value = _value;
 
-        if (value != null)
+        if (value is not null)
             for (; final >= start; final--)
                 if (value.GetRawStringData(final) != trimChar)
                     break;
@@ -401,7 +401,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         var final = _index + _length - 1;
         var value = _value;
 
-        if (value != null)
+        if (value is not null)
         {
             for (; final >= start; final--)
             {
@@ -431,7 +431,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         var final = _index + _length - 1;
         var value = _value;
 
-        if (value != null)
+        if (value is not null)
         {
             for (; start <= final; start++)
                 if (!char.IsWhiteSpace(value.GetRawStringData(start)))
@@ -458,7 +458,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         var final = _index + _length - 1;
         var value = _value;
 
-        if (value != null)
+        if (value is not null)
         {
             for (; start <= final; start++)
                 if (value.GetRawStringData(start) != trimChar)
@@ -507,7 +507,7 @@ public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>
         var final = _index + _length - 1;
         var value = _value;
 
-        if (value != null)
+        if (value is not null)
         {
             for (; start <= final; start++)
             {

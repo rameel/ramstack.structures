@@ -1,6 +1,6 @@
-﻿namespace Ramstack.Internal;
-
 #if NET9_0_OR_GREATER
+
+namespace Ramstack.Internal;
 
 /// <summary>
 /// Provides low-level access to the internal array buffer of a <see cref="List{T}"/>.

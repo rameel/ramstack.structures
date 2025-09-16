@@ -81,6 +81,9 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ArrayView(T[] array, int index, int length)
     {
+        //
+        // https://github.com/dotnet/runtime/issues/119689
+        //
         if ((uint)index > (uint)array.Length || (uint)length > (uint)(array.Length - index))
             ThrowHelper.ThrowArgumentOutOfRangeException();
 

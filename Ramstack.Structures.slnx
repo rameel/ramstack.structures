@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Packages.props" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Ramstack.Structures.Tests/Ramstack.Structures.Tests.csproj" />
+  <Project Path="Ramstack.Structures/Ramstack.Structures.csproj" />
+</Solution>

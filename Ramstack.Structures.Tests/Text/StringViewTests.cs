@@ -427,7 +427,7 @@ public sealed class StringViewTests
             Is.EqualTo(string.GetHashCode(value.AsSpan())));
 
         Assert.That(
-            (value?.ToUpper()).AsView().GetHashCode(StringComparison.OrdinalIgnoreCase),
+            (value?.ToUpperInvariant()).AsView().GetHashCode(StringComparison.OrdinalIgnoreCase),
             Is.EqualTo(string.GetHashCode(value.AsSpan(), StringComparison.OrdinalIgnoreCase)));
     }
 

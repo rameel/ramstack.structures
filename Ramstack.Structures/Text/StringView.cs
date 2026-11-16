@@ -4,6 +4,8 @@ namespace Ramstack.Text;
 /// Represents a read-only view of a string, providing safe and efficient access to a subset of its characters.
 /// </summary>
 [DebuggerDisplay("{ToStringDebugger(),nq}")]
+[SuppressMessage("Design", "CA1036:Override methods on comparable types",
+    Justification = "Like string, StringView provides ordering through the CompareTo and Compare methods instead of comparison operators.")]
 public readonly struct StringView : IReadOnlyList<char>, IComparable<StringView>, IComparable<string?>, IEquatable<StringView>, IEquatable<string?>
 {
     private readonly string? _value;

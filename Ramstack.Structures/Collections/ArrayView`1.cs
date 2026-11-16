@@ -16,6 +16,8 @@ public readonly struct ArrayView<T> : IReadOnlyList<T>
     /// <summary>
     /// Gets the empty array view.
     /// </summary>
+    [SuppressMessage("Design", "CA1000:Do not declare static members on generic types",
+        Justification = "Like ImmutableArray<T>.Empty, the empty instance belongs to the generic type, and removing it would break the public API.")]
     public static ArrayView<T> Empty => default;
 
     /// <summary>

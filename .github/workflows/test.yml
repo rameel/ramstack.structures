@@ -21,6 +21,7 @@ jobs:
             7.x
             8.x
             9.x
+            10.x
 
       - name: Test (Debug)
         run: dotnet test -c Debug

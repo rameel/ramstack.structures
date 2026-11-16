@@ -14,6 +14,8 @@ public readonly struct ReadOnlyArray<T> : IReadOnlyList<T>, IEquatable<ReadOnlyA
     /// <summary>
     /// Gets an empty read-only array.
     /// </summary>
+    [SuppressMessage("Design", "CA1000:Do not declare static members on generic types",
+        Justification = "Like ImmutableArray<T>.Empty, the empty instance belongs to the generic type, and removing it would break the public API.")]
     public static ReadOnlyArray<T> Empty => new(Array.Empty<T>());
 
     /// <summary>

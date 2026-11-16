@@ -251,10 +251,14 @@ public static partial class ReadOnlyArrayExtensions
         source.Inner!.SkipWhile(predicate);
 
     /// <inheritdoc cref="Enumerable.Single{TSource}(IEnumerable{TSource})"/>
+    [SuppressMessage("Naming", "CA1720:Identifier contains type name",
+        Justification = "The method mirrors Enumerable.Single, and renaming it would break the public API.")]
     public static T Single<T>(this ReadOnlyArray<T> source) =>
         source.Inner!.Single();
 
     /// <inheritdoc cref="Enumerable.Single{TSource}(IEnumerable{TSource},Func{TSource,bool})"/>
+    [SuppressMessage("Naming", "CA1720:Identifier contains type name",
+        Justification = "The method mirrors Enumerable.Single, and renaming it would break the public API.")]
     public static T Single<T>(this ReadOnlyArray<T> source, Func<T, bool> predicate) =>
         source.Inner!.Single(predicate);
 
